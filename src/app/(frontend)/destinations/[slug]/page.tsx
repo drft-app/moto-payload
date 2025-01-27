@@ -5,14 +5,13 @@ import { notFound } from 'next/navigation'
 import { getPayloadClient } from '../../../../getPayload'
 import { Destination } from '../../../../payload-types'
 import TourCard from '../../_components/tours/TourCard'
+import RichText from '@/components/RichText'
 
 interface Props {
-  params: {
-    slug: string
-  }
+  params: Promise<{ slug: string }>
 }
 
-async function getDestination(slug: string): Promise<Destination | null> {
+async function getDestination(slug: Promise<{ slug: string }>): Promise<Destination | null> {
   const payload = await getPayloadClient()
 
   const { docs } = await payload.find({
@@ -29,7 +28,7 @@ async function getDestination(slug: string): Promise<Destination | null> {
 }
 
 export async function generateMetadata({ params }: Props) {
-  const destination = await getDestination(params.slug)
+  const destination = await getDestination(params)
 
   if (!destination) {
     return {
@@ -44,7 +43,7 @@ export async function generateMetadata({ params }: Props) {
 }
 
 export default async function DestinationPage({ params }: Props) {
-  const destination = await getDestination(params.slug)
+  const destination = await getDestination(params)
 
   if (!destination) {
     notFound()
@@ -84,15 +83,17 @@ export default async function DestinationPage({ params }: Props) {
     <div className="min-h-screen bg-gray-50">
       {/* Hero Section */}
       <div className="relative h-[60vh] min-h-[400px]">
-        {destination.featuredImage && 'url' in destination.featuredImage && (
-          <Image
-            src={destination.featuredImage.url}
-            alt={destination.name}
-            fill
-            className="object-cover"
-            priority
-          />
-        )}
+        {destination.featuredImage &&
+          typeof destination.featuredImage === 'object' &&
+          'url' in destination.featuredImage && (
+            <Image
+              src={destination.featuredImage.url || ''}
+              alt={destination.name}
+              fill
+              className="object-cover"
+              priority
+            />
+          )}
         <div className="absolute inset-0 bg-black/40" />
         <div className="absolute inset-0 flex items-center">
           <div className="container mx-auto px-4">
@@ -113,7 +114,9 @@ export default async function DestinationPage({ params }: Props) {
             {/* Description */}
             <section className="bg-white rounded-lg shadow-md p-6 mb-8">
               <h2 className="text-2xl font-semibold mb-4">About {destination.name}</h2>
-              <div className="prose max-w-none">{destination.description}</div>
+              <div className="prose max-w-none">
+                <RichText data={destination.description} />
+              </div>
             </section>
 
             {/* Highlights */}
@@ -151,9 +154,9 @@ export default async function DestinationPage({ params }: Props) {
                 <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
                   {destination.gallery.map((item, index) => (
                     <div key={index} className="relative aspect-square">
-                      {item.image && 'url' in item.image && (
+                      {item.image && typeof item.image === 'object' && 'url' in item.image && (
                         <Image
-                          src={item.image.url}
+                          src={item.image.url || ''}
                           alt={`${destination.name} gallery image ${index + 1}`}
                           fill
                           className="object-cover rounded-lg"
@@ -170,8 +173,10 @@ export default async function DestinationPage({ params }: Props) {
               <section className="bg-white rounded-lg shadow-md p-6">
                 <h2 className="text-2xl font-semibold mb-6">Available Tours</h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  {destination.relatedTours.map(
-                    (tour) => 'id' in tour && <TourCard key={tour.id} tour={tour} />,
+                  {destination.relatedTours?.map(
+                    (tour) =>
+                      typeof tour === 'object' &&
+                      'id' in tour && <TourCard key={tour.id} tour={tour} />,
                   )}
                 </div>
               </section>
