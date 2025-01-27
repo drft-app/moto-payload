@@ -12,9 +12,16 @@ export default function TourCard({ tour }: TourCardProps) {
     <Link href={`/tours/${tour.slug}`} className="group">
       <div className="bg-white rounded-lg shadow-md overflow-hidden transition-transform duration-300 group-hover:scale-[1.02]">
         <div className="relative h-48">
-          {tour.featuredImage && 'url' in tour.featuredImage && (
-            <Image src={tour.featuredImage.url} alt={tour.title} fill className="object-cover" />
-          )}
+          {tour.featuredImage &&
+            typeof tour.featuredImage === 'object' &&
+            'url' in tour.featuredImage && (
+              <Image
+                src={tour.featuredImage.url || ''}
+                alt={tour.title}
+                fill
+                className="object-cover"
+              />
+            )}
           <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-4">
             <div className="text-white">
               <span className="inline-block px-2 py-1 text-sm bg-primary-600 rounded-full">

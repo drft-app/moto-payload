@@ -77,14 +77,16 @@ export default async function DestinationsPage() {
               >
                 <div className="bg-white rounded-lg shadow-md overflow-hidden">
                   <div className="relative h-48">
-                    {destination.featuredImage && 'url' in destination.featuredImage && (
-                      <Image
-                        src={destination.featuredImage.url}
-                        alt={destination.name}
-                        fill
-                        className="object-cover group-hover:scale-105 transition-transform duration-300"
-                      />
-                    )}
+                    {destination.featuredImage &&
+                      typeof destination.featuredImage === 'object' &&
+                      'url' in destination.featuredImage && (
+                        <Image
+                          src={destination.featuredImage.url || ''}
+                          alt={destination.name}
+                          fill
+                          className="object-cover group-hover:scale-105 transition-transform duration-300"
+                        />
+                      )}
                   </div>
                   <div className="p-4">
                     <h3 className="text-xl font-semibold mb-2 group-hover:text-primary-600">

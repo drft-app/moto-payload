@@ -75,10 +75,12 @@ export default async function TourReviews({ tourId }: Props) {
         {reviews.map((review) => (
           <div key={review.id} className="border-b pb-6 last:border-b-0">
             <div className="flex items-start gap-4">
-              {review.customerPhoto && 'url' in review.customerPhoto ? (
+              {review.customerPhoto &&
+              typeof review.customerPhoto === 'object' &&
+              'url' in review.customerPhoto ? (
                 <div className="relative w-12 h-12">
                   <Image
-                    src={review.customerPhoto.url}
+                    src={review.customerPhoto.url || ''}
                     alt={review.customerName}
                     fill
                     className="object-cover rounded-full"
