@@ -318,7 +318,7 @@ export const seed = async ({
       depth: 0,
       data: JSON.parse(
         JSON.stringify(home)
-          .replace(/"\{\{IMAGE_1\}\}"/g, String(imageHomeID))
+          .replace(/"\{\{HERO_HERO_1\}\}"/g, String(imageHomeID))
           .replace(/"\{\{IMAGE_2\}\}"/g, String(image2ID)),
       ),
     }),
@@ -344,8 +344,29 @@ export const seed = async ({
           {
             link: {
               type: 'custom',
-              label: 'Posts',
+              label: 'Tours',
+              url: '/tours',
+            },
+          },
+          {
+            link: {
+              type: 'custom',
+              label: 'Destinations',
+              url: '/destinations',
+            },
+          },
+          {
+            link: {
+              type: 'custom',
+              label: 'Blog',
               url: '/posts',
+            },
+          },
+          {
+            link: {
+              type: 'custom',
+              label: 'About us',
+              url: '/about',
             },
           },
           {
@@ -365,29 +386,29 @@ export const seed = async ({
       slug: 'footer',
       data: {
         navItems: [
-          {
-            link: {
-              type: 'custom',
-              label: 'Admin',
-              url: '/admin',
-            },
-          },
-          {
-            link: {
-              type: 'custom',
-              label: 'Source Code',
-              newTab: true,
-              url: 'https://github.com/payloadcms/payload/tree/main/templates/website',
-            },
-          },
-          {
-            link: {
-              type: 'custom',
-              label: 'Payload',
-              newTab: true,
-              url: 'https://payloadcms.com/',
-            },
-          },
+          // {
+          //   link: {
+          //     type: 'custom',
+          //     label: 'Admin',
+          //     url: '/admin',
+          //   },
+          // },
+          // {
+          //   link: {
+          //     type: 'custom',
+          //     label: 'Source Code',
+          //     newTab: true,
+          //     url: 'https://github.com/payloadcms/payload/tree/main/templates/website',
+          //   },
+          // },
+          // {
+          //   link: {
+          //     type: 'custom',
+          //     label: 'Payload',
+          //     newTab: true,
+          //     url: 'https://payloadcms.com/',
+          //   },
+          // },
         ],
       },
     }),
