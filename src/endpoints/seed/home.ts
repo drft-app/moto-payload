@@ -23,7 +23,7 @@ export const home: RequiredDataFromCollectionSlug<'pages'> = {
         },
       },
     ],
-    media: '{{IMAGE_1}}',
+    media: '{{IMAGE_HERO_1}}',
     richText: {
       root: {
         type: 'root',
@@ -485,9 +485,9 @@ export const home: RequiredDataFromCollectionSlug<'pages'> = {
     },
   ],
   meta: {
-    description: 'An open-source website built with Payload and Next.js.',
-    image: '{{IMAGE_1}}',
-    title: 'Payload Website Template',
+    description: 'China Motorcycle Tours',
+    image: '{{IMAGE_HERO_1}}',
+    title: 'China Motorcycle Tours',
   },
   title: 'Home',
 }
