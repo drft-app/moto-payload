@@ -16,6 +16,10 @@ export interface Config {
     media: Media;
     categories: Category;
     users: User;
+    tours: Tour;
+    destinations: Destination;
+    reviews: Review;
+    'tour-dates': TourDate;
     redirects: Redirect;
     forms: Form;
     'form-submissions': FormSubmission;
@@ -32,6 +36,10 @@ export interface Config {
     media: MediaSelect<false> | MediaSelect<true>;
     categories: CategoriesSelect<false> | CategoriesSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
+    tours: ToursSelect<false> | ToursSelect<true>;
+    destinations: DestinationsSelect<false> | DestinationsSelect<true>;
+    reviews: ReviewsSelect<false> | ReviewsSelect<true>;
+    'tour-dates': TourDatesSelect<false> | TourDatesSelect<true>;
     redirects: RedirectsSelect<false> | RedirectsSelect<true>;
     forms: FormsSelect<false> | FormsSelect<true>;
     'form-submissions': FormSubmissionsSelect<false> | FormSubmissionsSelect<true>;
@@ -672,6 +680,202 @@ export interface Form {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "tours".
+ */
+export interface Tour {
+  id: string;
+  title: string;
+  slug?: string | null;
+  slugLock?: boolean | null;
+  featuredImage: string | Media;
+  gallery?:
+    | {
+        image: string | Media;
+        id?: string | null;
+      }[]
+    | null;
+  shortDescription: string;
+  fullDescription: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  /**
+   * Duration in days
+   */
+  duration: number;
+  /**
+   * Price in USD
+   */
+  price: number;
+  difficulty: 'easy' | 'moderate' | 'challenging' | 'expert';
+  included?:
+    | {
+        item: string;
+        id?: string | null;
+      }[]
+    | null;
+  itinerary?:
+    | {
+        day: number;
+        title: string;
+        description: {
+          root: {
+            type: string;
+            children: {
+              type: string;
+              version: number;
+              [k: string]: unknown;
+            }[];
+            direction: ('ltr' | 'rtl') | null;
+            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+            indent: number;
+            version: number;
+          };
+          [k: string]: unknown;
+        };
+        /**
+         * Distance in kilometers
+         */
+        distance?: number | null;
+        id?: string | null;
+      }[]
+    | null;
+  requirements?:
+    | {
+        requirement: string;
+        id?: string | null;
+      }[]
+    | null;
+  motorcycles?:
+    | {
+        model: string;
+        image?: (string | null) | Media;
+        description?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Show this tour on the homepage
+   */
+  featured?: boolean | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "destinations".
+ */
+export interface Destination {
+  id: string;
+  name: string;
+  slug?: string | null;
+  slugLock?: boolean | null;
+  region: 'north' | 'south' | 'east' | 'west' | 'central' | 'tibet' | 'xinjiang';
+  featuredImage: string | Media;
+  gallery?:
+    | {
+        image: string | Media;
+        id?: string | null;
+      }[]
+    | null;
+  description: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  highlights?:
+    | {
+        highlight: string;
+        id?: string | null;
+      }[]
+    | null;
+  bestTimeToVisit?:
+    | {
+        month: '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9' | '10' | '11' | '12';
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Show this destination on the homepage
+   */
+  featured?: boolean | null;
+  relatedTours?: (string | Tour)[] | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "reviews".
+ */
+export interface Review {
+  id: string;
+  customerName: string;
+  customerPhoto?: (string | null) | Media;
+  rating: '5' | '4' | '3' | '2' | '1';
+  review: string;
+  tour: string | Tour;
+  tourDate: string;
+  /**
+   * Only approved reviews will be shown on the website
+   */
+  approved?: boolean | null;
+  /**
+   * Featured reviews will be shown on the homepage
+   */
+  featured?: boolean | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "tour-dates".
+ */
+export interface TourDate {
+  id: string;
+  tour: string | Tour;
+  startDate: string;
+  endDate: string;
+  maxParticipants: number;
+  currentBookings: number;
+  availability: 'available' | 'almost-full' | 'full' | 'waiting-list' | 'cancelled';
+  /**
+   * Price in USD (can be different from base tour price)
+   */
+  price: number;
+  /**
+   * Early bird discount percentage
+   */
+  earlyBirdDiscount?: number | null;
+  /**
+   * Internal notes about this tour date
+   */
+  notes?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "redirects".
  */
 export interface Redirect {
@@ -861,6 +1065,22 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'users';
         value: string | User;
+      } | null)
+    | ({
+        relationTo: 'tours';
+        value: string | Tour;
+      } | null)
+    | ({
+        relationTo: 'destinations';
+        value: string | Destination;
+      } | null)
+    | ({
+        relationTo: 'reviews';
+        value: string | Review;
+      } | null)
+    | ({
+        relationTo: 'tour-dates';
+        value: string | TourDate;
       } | null)
     | ({
         relationTo: 'redirects';
@@ -1218,6 +1438,126 @@ export interface UsersSelect<T extends boolean = true> {
   hash?: T;
   loginAttempts?: T;
   lockUntil?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "tours_select".
+ */
+export interface ToursSelect<T extends boolean = true> {
+  title?: T;
+  slug?: T;
+  slugLock?: T;
+  featuredImage?: T;
+  gallery?:
+    | T
+    | {
+        image?: T;
+        id?: T;
+      };
+  shortDescription?: T;
+  fullDescription?: T;
+  duration?: T;
+  price?: T;
+  difficulty?: T;
+  included?:
+    | T
+    | {
+        item?: T;
+        id?: T;
+      };
+  itinerary?:
+    | T
+    | {
+        day?: T;
+        title?: T;
+        description?: T;
+        distance?: T;
+        id?: T;
+      };
+  requirements?:
+    | T
+    | {
+        requirement?: T;
+        id?: T;
+      };
+  motorcycles?:
+    | T
+    | {
+        model?: T;
+        image?: T;
+        description?: T;
+        id?: T;
+      };
+  featured?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "destinations_select".
+ */
+export interface DestinationsSelect<T extends boolean = true> {
+  name?: T;
+  slug?: T;
+  slugLock?: T;
+  region?: T;
+  featuredImage?: T;
+  gallery?:
+    | T
+    | {
+        image?: T;
+        id?: T;
+      };
+  description?: T;
+  highlights?:
+    | T
+    | {
+        highlight?: T;
+        id?: T;
+      };
+  bestTimeToVisit?:
+    | T
+    | {
+        month?: T;
+        id?: T;
+      };
+  featured?: T;
+  relatedTours?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "reviews_select".
+ */
+export interface ReviewsSelect<T extends boolean = true> {
+  customerName?: T;
+  customerPhoto?: T;
+  rating?: T;
+  review?: T;
+  tour?: T;
+  tourDate?: T;
+  approved?: T;
+  featured?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "tour-dates_select".
+ */
+export interface TourDatesSelect<T extends boolean = true> {
+  tour?: T;
+  startDate?: T;
+  endDate?: T;
+  maxParticipants?: T;
+  currentBookings?: T;
+  availability?: T;
+  price?: T;
+  earlyBirdDiscount?: T;
+  notes?: T;
+  updatedAt?: T;
+  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
