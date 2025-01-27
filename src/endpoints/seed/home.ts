@@ -23,7 +23,7 @@ export const home: RequiredDataFromCollectionSlug<'pages'> = {
         },
       },
     ],
-    media: '{{IMAGE_HERO_1}}',
+    media: '{{HERO_HERO_1}}',
     richText: {
       root: {
         type: 'root',
@@ -485,9 +485,10 @@ export const home: RequiredDataFromCollectionSlug<'pages'> = {
     },
   ],
   meta: {
-    description: 'China Motorcycle Tours',
-    image: '{{IMAGE_HERO_1}}',
-    title: 'China Motorcycle Tours',
+    title: 'China Motorcycle Tours | Adventure Awaits',
+    description:
+      'Experience the thrill of motorcycle touring across China. From the Great Wall to Tibet, discover breathtaking landscapes and ancient cultures on two wheels.',
+    image: '{{HERO_HERO_1}}',
   },
   title: 'Home',
 }

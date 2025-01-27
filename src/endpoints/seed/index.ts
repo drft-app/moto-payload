@@ -318,7 +318,7 @@ export const seed = async ({
       depth: 0,
       data: JSON.parse(
         JSON.stringify(home)
-          .replace(/"\{\{IMAGE_1\}\}"/g, String(imageHomeID))
+          .replace(/"\{\{HERO_HERO_1\}\}"/g, String(imageHomeID))
           .replace(/"\{\{IMAGE_2\}\}"/g, String(image2ID)),
       ),
     }),
