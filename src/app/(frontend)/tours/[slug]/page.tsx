@@ -1,18 +1,17 @@
 import React from 'react'
 import Image from 'next/image'
 import { notFound } from 'next/navigation'
-import { getPayloadClient } from '../../../../getPayload'
-import { Tour } from '../../../../payload-types'
-import TourDatesSection from '../../_components/tours/TourDatesSection'
-import TourReviews from '../../_components/tours/TourReviews'
+import { getPayloadClient } from '@/getPayload'
+import { Tour } from '@/payload-types'
+import TourDatesSection from '@/app/(frontend)/_components/tours/TourDatesSection'
+import TourReviews from '@/app/(frontend)/_components/tours/TourReviews'
+import RichText from '@/components/RichText'
 
 interface Props {
-  params: {
-    slug: string
-  }
+  params: Promise<{ slug: string }>
 }
 
-async function getTour(slug: string): Promise<Tour | null> {
+async function getTour(slug: Promise<{ slug: string }>): Promise<Tour | null> {
   const payload = await getPayloadClient()
 
   const { docs } = await payload.find({
@@ -29,7 +28,7 @@ async function getTour(slug: string): Promise<Tour | null> {
 }
 
 export async function generateMetadata({ params }: Props) {
-  const tour = await getTour(params.slug)
+  const tour = await getTour(params)
 
   if (!tour) {
     return {
@@ -44,7 +43,7 @@ export async function generateMetadata({ params }: Props) {
 }
 
 export default async function TourPage({ params }: Props) {
-  const tour = await getTour(params.slug)
+  const tour = await getTour(params)
 
   if (!tour) {
     notFound()
@@ -54,15 +53,17 @@ export default async function TourPage({ params }: Props) {
     <div className="min-h-screen bg-gray-50">
       {/* Hero Section */}
       <div className="relative h-[60vh] min-h-[400px]">
-        {tour.featuredImage && 'url' in tour.featuredImage && (
-          <Image
-            src={tour.featuredImage.url}
-            alt={tour.title}
-            fill
-            className="object-cover"
-            priority
-          />
-        )}
+        {tour.featuredImage &&
+          typeof tour.featuredImage === 'object' &&
+          'url' in tour.featuredImage && (
+            <Image
+              src={tour.featuredImage.url || ''}
+              alt={tour.title}
+              fill
+              className="object-cover"
+              priority
+            />
+          )}
         <div className="absolute inset-0 bg-black/40" />
         <div className="absolute inset-0 flex items-center">
           <div className="container mx-auto px-4">
@@ -96,7 +97,9 @@ export default async function TourPage({ params }: Props) {
             {/* Overview */}
             <section className="bg-white rounded-lg shadow-md p-6 mb-8">
               <h2 className="text-2xl font-semibold mb-4">Overview</h2>
-              <div className="prose max-w-none">{tour.fullDescription}</div>
+              <div className="prose max-w-none">
+                <RichText data={tour.fullDescription} />
+              </div>
             </section>
 
             {/* Itinerary */}
@@ -112,7 +115,9 @@ export default async function TourPage({ params }: Props) {
                     <h3 className="text-lg font-semibold mb-2">
                       Day {day.day}: {day.title}
                     </h3>
-                    <div className="prose max-w-none">{day.description}</div>
+                    <div className="prose max-w-none">
+                      <RichText data={day.description} />
+                    </div>
                     {day.distance && (
                       <p className="text-sm text-gray-600 mt-2">Distance: {day.distance} km</p>
                     )}
@@ -127,16 +132,18 @@ export default async function TourPage({ params }: Props) {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {tour.motorcycles?.map((motorcycle) => (
                   <div key={motorcycle.model} className="flex gap-4">
-                    {motorcycle.image && 'url' in motorcycle.image && (
-                      <div className="relative w-24 h-24">
-                        <Image
-                          src={motorcycle.image.url}
-                          alt={motorcycle.model}
-                          fill
-                          className="object-cover rounded-lg"
-                        />
-                      </div>
-                    )}
+                    {motorcycle.image &&
+                      typeof motorcycle.image === 'object' &&
+                      'url' in motorcycle.image && (
+                        <div className="relative w-24 h-24">
+                          <Image
+                            src={motorcycle.image.url || ''}
+                            alt={motorcycle.model}
+                            fill
+                            className="object-cover rounded-lg"
+                          />
+                        </div>
+                      )}
                     <div>
                       <h3 className="font-semibold mb-1">{motorcycle.model}</h3>
                       <p className="text-sm text-gray-600">{motorcycle.description}</p>
