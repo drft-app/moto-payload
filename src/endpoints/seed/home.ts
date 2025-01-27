@@ -48,7 +48,7 @@ export const home: RequiredDataFromCollectionSlug<'pages'> = {
             version: 1,
           },
           {
-            type: 'paragraph',
+            type: 'heading',
             children: [
               {
                 type: 'text',
@@ -65,6 +65,7 @@ export const home: RequiredDataFromCollectionSlug<'pages'> = {
             indent: 0,
             textFormat: 0,
             version: 1,
+            tag: 'h3',
           },
         ],
         direction: 'ltr',

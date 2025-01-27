@@ -1,5 +1,5 @@
-import { Tour } from '../../../payload-types'
-import { getPayloadClient } from '../../../getPayload'
+import { Tour } from '@/payload-types'
+import { getPayloadClient } from '@/getPayload'
 
 export type TourFilters = {
   difficulty?: string
