@@ -1,5 +1,6 @@
 import type { Payload } from 'payload'
 import payload from 'payload'
+import config from '@/payload.config'
 
 let cached = (global as any).payload
 
@@ -28,8 +29,7 @@ export const getPayloadClient = async ({ initOptions }: Args = {}): Promise<Payl
 
   if (!cached.promise) {
     cached.promise = payload.init({
-      secret: process.env.PAYLOAD_SECRET,
-      local: initOptions?.local || true,
+      config,
     })
   }
 
