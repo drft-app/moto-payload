@@ -9,6 +9,7 @@ import { imageHero1 } from './image-hero-1'
 import { post1 } from './post-1'
 import { post2 } from './post-2'
 import { post3 } from './post-3'
+import { tours } from './tours'
 
 const collections: CollectionSlug[] = [
   'categories',
@@ -146,7 +147,6 @@ export const seed = async ({
         ],
       },
     }),
-
     payload.create({
       collection: 'categories',
       data: {
@@ -159,7 +159,6 @@ export const seed = async ({
         ],
       },
     }),
-
     payload.create({
       collection: 'categories',
       data: {
@@ -184,7 +183,6 @@ export const seed = async ({
         ],
       },
     }),
-
     payload.create({
       collection: 'categories',
       data: {
@@ -197,7 +195,6 @@ export const seed = async ({
         ],
       },
     }),
-
     payload.create({
       collection: 'categories',
       data: {
@@ -413,6 +410,18 @@ export const seed = async ({
       },
     }),
   ])
+
+  payload.logger.info(`— Seeding tours...`)
+  await Promise.all(
+    tours.map((tour) => {
+      const tourData = { ...tour }
+      tourData.featuredImage = image1ID
+      return payload.create({
+        collection: 'tours',
+        data: tourData,
+      })
+    }),
+  )
 
   payload.logger.info('Seeded database successfully!')
 }
