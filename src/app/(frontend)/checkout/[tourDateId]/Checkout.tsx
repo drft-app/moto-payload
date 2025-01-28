@@ -1,6 +1,6 @@
 import { TourDate } from '@/payload-types'
 import { loadStripe } from '@stripe/stripe-js'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { EmbeddedCheckoutProvider, EmbeddedCheckout } from '@stripe/react-stripe-js'
 

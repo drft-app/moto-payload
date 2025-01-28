@@ -1,6 +1,7 @@
 import { getPayloadClient } from '@/getPayload'
 import { notFound } from 'next/navigation'
 import { Checkout } from './Checkout'
+import { Tour } from '@/payload-types'
 
 interface Props {
   params: {
@@ -46,7 +47,7 @@ export default async function CheckoutPage({ params: { tourDateId } }: Props) {
             <h2 className="text-xl font-semibold mb-4">Order Summary</h2>
             <div className="space-y-4">
               <div>
-                <h3 className="font-medium">{tourDate.tour.title}</h3>
+                <h3 className="font-medium">{(tourDate.tour as Tour).title}</h3>
                 <p className="text-sm text-gray-600">
                   {new Date(tourDate.startDate).toLocaleDateString()} -{' '}
                   {new Date(tourDate.endDate).toLocaleDateString()}

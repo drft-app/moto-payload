@@ -17,7 +17,8 @@ export default async function ConfirmationPage({ searchParams }: Props) {
         <div className="max-w-2xl mx-auto text-center">
           <h1 className="text-3xl font-bold mb-4">Invalid Session</h1>
           <p className="text-gray-600 mb-8">
-            We couldn't find your booking. Please contact support if you believe this is an error.
+            We couldn&apos;t find your booking. Please contact support if you believe this is an
+            error.
           </p>
           <Link
             href="/"
@@ -92,7 +93,7 @@ export default async function ConfirmationPage({ searchParams }: Props) {
               </div>
 
               <div className="border-t pt-6">
-                <h3 className="font-medium mb-2">What's Next?</h3>
+                <h3 className="font-medium mb-2">What&apos;s Next?</h3>
                 <ul className="list-disc list-inside text-gray-600 space-y-2">
                   <li>You will receive a confirmation email with your booking details</li>
                   <li>Our team will contact you with pre-trip information</li>
@@ -120,7 +121,7 @@ export default async function ConfirmationPage({ searchParams }: Props) {
         <div className="max-w-2xl mx-auto text-center">
           <h1 className="text-3xl font-bold mb-4">Something Went Wrong</h1>
           <p className="text-gray-600 mb-8">
-            We couldn't retrieve your booking information. Please contact support if you need
+            We couldn&apos;t retrieve your booking information. Please contact support if you need
             assistance.
           </p>
           <Link
