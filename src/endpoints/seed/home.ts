@@ -14,14 +14,6 @@ export const home: RequiredDataFromCollectionSlug<'pages'> = {
           url: '/tours',
         },
       },
-      {
-        link: {
-          type: 'custom',
-          appearance: 'outline',
-          label: 'Contact Us',
-          url: '/contact',
-        },
-      },
     ],
     media: '{{HERO_HERO_1}}',
     richText: {
