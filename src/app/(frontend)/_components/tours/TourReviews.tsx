@@ -47,53 +47,50 @@ function StarRating({ rating }: { rating: string }) {
 export default async function TourReviews({ tourId }: Props) {
   const reviews = await getTourReviews(tourId)
 
-  if (reviews.length === 0) {
-    return (
-      <section className="bg-white rounded-lg shadow-md p-6">
-        <h2 className="text-2xl font-semibold mb-4">Reviews</h2>
-        <p className="text-gray-600">No reviews yet. Be the first to review this tour!</p>
-      </section>
-    )
+  if (!reviews || reviews.length === 0) {
+    return null
   }
 
   const averageRating =
-    reviews.reduce((acc, review) => acc + parseInt(review.rating), 0) / reviews.length
+    reviews.reduce((acc, review) => acc + Number(review.rating), 0) / reviews.length
 
   return (
-    <section className="bg-white rounded-lg shadow-md p-6">
+    <section className="bg-white rounded-lg shadow-md p-4 sm:p-6">
       <div className="flex items-center justify-between mb-6">
-        <h2 className="text-2xl font-semibold">Reviews</h2>
+        <h2 className="text-xl sm:text-2xl font-semibold">Customer Reviews</h2>
         <div className="flex items-center gap-2">
-          <StarRating rating={Math.round(averageRating).toString()} />
-          <span className="text-gray-600">
-            {averageRating.toFixed(1)} ({reviews.length} reviews)
-          </span>
+          <span className="text-lg sm:text-xl font-semibold">{averageRating.toFixed(1)}</span>
+          <StarRating rating={averageRating.toString()} />
+          <span className="text-sm text-gray-600">({reviews.length} reviews)</span>
         </div>
       </div>
 
       <div className="space-y-6">
         {reviews.map((review) => (
           <div key={review.id} className="border-b pb-6 last:border-b-0">
-            <div className="flex items-start gap-4">
+            <div className="flex items-start gap-3 sm:gap-4">
               {review.customerPhoto &&
               typeof review.customerPhoto === 'object' &&
               'url' in review.customerPhoto ? (
-                <div className="relative w-12 h-12">
+                <div className="relative w-10 h-10 sm:w-12 sm:h-12">
                   <Image
                     src={review.customerPhoto.url || ''}
                     alt={review.customerName}
                     fill
                     className="object-cover rounded-full"
+                    sizes="(max-width: 640px) 40px, 48px"
                   />
                 </div>
               ) : (
-                <div className="w-12 h-12 bg-gray-200 rounded-full flex items-center justify-center">
-                  <span className="text-xl text-gray-600">{review.customerName.charAt(0)}</span>
+                <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gray-200 rounded-full flex items-center justify-center">
+                  <span className="text-lg sm:text-xl text-gray-600">
+                    {review.customerName.charAt(0)}
+                  </span>
                 </div>
               )}
-              <div className="flex-1">
-                <div className="flex items-center justify-between mb-1">
-                  <h3 className="font-semibold">{review.customerName}</h3>
+              <div className="flex-1 min-w-0">
+                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-1 gap-1">
+                  <h3 className="font-semibold truncate">{review.customerName}</h3>
                   <span className="text-sm text-gray-600">
                     {new Date(review.tourDate).toLocaleDateString('en-US', {
                       month: 'long',
@@ -101,8 +98,10 @@ export default async function TourReviews({ tourId }: Props) {
                     })}
                   </span>
                 </div>
-                <StarRating rating={review.rating} />
-                <p className="mt-2 text-gray-600">{review.review}</p>
+                <div className="mb-2">
+                  <StarRating rating={review.rating} />
+                </div>
+                <p className="text-gray-600 text-sm sm:text-base">{review.review}</p>
               </div>
             </div>
           </div>
