@@ -11,7 +11,7 @@ interface Props {
   params: Promise<{ slug: string }>
 }
 
-async function getDestination(slug: Promise<{ slug: string }>): Promise<Destination | null> {
+async function getDestination(slug: string): Promise<Destination | null> {
   const payload = await getPayloadClient()
 
   const { docs } = await payload.find({
@@ -28,7 +28,8 @@ async function getDestination(slug: Promise<{ slug: string }>): Promise<Destinat
 }
 
 export async function generateMetadata({ params }: Props) {
-  const destination = await getDestination(params)
+  const resolvedParams = await params
+  const destination = await getDestination(resolvedParams.slug)
 
   if (!destination) {
     return {
@@ -43,7 +44,8 @@ export async function generateMetadata({ params }: Props) {
 }
 
 export default async function DestinationPage({ params }: Props) {
-  const destination = await getDestination(params)
+  const resolvedParams = await params
+  const destination = await getDestination(resolvedParams.slug)
 
   if (!destination) {
     notFound()
