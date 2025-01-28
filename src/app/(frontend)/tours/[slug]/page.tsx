@@ -11,7 +11,7 @@ interface Props {
   params: Promise<{ slug: string }>
 }
 
-async function getTour(slug: Promise<{ slug: string }>): Promise<Tour | null> {
+async function getTour(slug: string): Promise<Tour | null> {
   const payload = await getPayloadClient()
 
   const { docs } = await payload.find({
@@ -28,7 +28,8 @@ async function getTour(slug: Promise<{ slug: string }>): Promise<Tour | null> {
 }
 
 export async function generateMetadata({ params }: Props) {
-  const tour = await getTour(params)
+  const resolvedParams = await params
+  const tour = await getTour(resolvedParams.slug)
 
   if (!tour) {
     return {
@@ -43,7 +44,8 @@ export async function generateMetadata({ params }: Props) {
 }
 
 export default async function TourPage({ params }: Props) {
-  const tour = await getTour(params)
+  const resolvedParams = await params
+  const tour = await getTour(resolvedParams.slug)
 
   if (!tour) {
     notFound()
