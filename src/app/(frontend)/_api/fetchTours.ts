@@ -27,3 +27,19 @@ export async function fetchTours(filters?: TourFilters): Promise<Tour[]> {
 
   return tours as Tour[]
 }
+
+export async function fetchFeaturedTours(): Promise<Tour[]> {
+  const payload = await getPayloadClient()
+
+  const { docs: tours } = await payload.find({
+    collection: 'tours',
+    where: {
+      featured: {
+        equals: true,
+      },
+    },
+    depth: 1,
+  })
+
+  return tours as Tour[]
+}

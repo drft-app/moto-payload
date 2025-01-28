@@ -20,6 +20,7 @@ const collections: CollectionSlug[] = [
   'forms',
   'form-submissions',
   'search',
+  'tours',
 ]
 const globals: GlobalSlug[] = ['header', 'footer']
 
@@ -337,6 +338,17 @@ export const seed = async ({
     }),
   ])
 
+  payload.logger.info(`— Seeding tours...`)
+  await Promise.all(
+    tours.map((tour) => {
+      return payload.create({
+        collection: 'tours',
+        depth: 0,
+        data: JSON.parse(JSON.stringify(tour).replace(/"\{\{IMAGE_1\}\}"/g, String(image1ID))),
+      })
+    }),
+  )
+
   payload.logger.info(`— Seeding globals...`)
 
   await Promise.all([
@@ -416,16 +428,6 @@ export const seed = async ({
       },
     }),
   ])
-
-  payload.logger.info(`— Seeding tours...`)
-  await Promise.all(
-    tours.map((tour) => {
-      return payload.create({
-        collection: 'tours',
-        data: JSON.parse(JSON.stringify(tour).replace(/"\{\{IMAGE_1\}\}"/g, String(image1ID))),
-      })
-    }),
-  )
 
   payload.logger.info('Seeded database successfully!')
 }
