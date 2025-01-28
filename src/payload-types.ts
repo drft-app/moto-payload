@@ -20,6 +20,7 @@ export interface Config {
     destinations: Destination;
     reviews: Review;
     'tour-dates': TourDate;
+    bookings: Booking;
     redirects: Redirect;
     forms: Form;
     'form-submissions': FormSubmission;
@@ -40,6 +41,7 @@ export interface Config {
     destinations: DestinationsSelect<false> | DestinationsSelect<true>;
     reviews: ReviewsSelect<false> | ReviewsSelect<true>;
     'tour-dates': TourDatesSelect<false> | TourDatesSelect<true>;
+    bookings: BookingsSelect<false> | BookingsSelect<true>;
     redirects: RedirectsSelect<false> | RedirectsSelect<true>;
     forms: FormsSelect<false> | FormsSelect<true>;
     'form-submissions': FormSubmissionsSelect<false> | FormSubmissionsSelect<true>;
@@ -862,6 +864,58 @@ export interface TourDate {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "bookings".
+ */
+export interface Booking {
+  id: string;
+  /**
+   * Unique booking reference number
+   */
+  bookingReference: string;
+  tourDate: string | TourDate;
+  customer: {
+    email: string;
+    fullName: string;
+    phone: string;
+    address: {
+      line1: string;
+      line2?: string | null;
+      city: string;
+      state: string;
+      postalCode: string;
+      country: string;
+    };
+  };
+  participants: {
+    fullName: string;
+    email: string;
+    phone: string;
+    emergencyContact: {
+      name: string;
+      phone: string;
+      relationship: string;
+    };
+    id?: string | null;
+  }[];
+  payment: {
+    amount: number;
+    currency: 'USD';
+    /**
+     * Stripe Payment Intent ID
+     */
+    stripePaymentIntentId?: string | null;
+    status: 'pending' | 'processing' | 'paid' | 'failed' | 'refunded';
+  };
+  status: 'pending' | 'confirmed' | 'cancelled';
+  /**
+   * Internal notes about this booking
+   */
+  notes?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "redirects".
  */
 export interface Redirect {
@@ -1067,6 +1121,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'tour-dates';
         value: string | TourDate;
+      } | null)
+    | ({
+        relationTo: 'bookings';
+        value: string | Booking;
       } | null)
     | ({
         relationTo: 'redirects';
@@ -1521,6 +1579,58 @@ export interface TourDatesSelect<T extends boolean = true> {
   availability?: T;
   price?: T;
   earlyBirdDiscount?: T;
+  notes?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "bookings_select".
+ */
+export interface BookingsSelect<T extends boolean = true> {
+  bookingReference?: T;
+  tourDate?: T;
+  customer?:
+    | T
+    | {
+        email?: T;
+        fullName?: T;
+        phone?: T;
+        address?:
+          | T
+          | {
+              line1?: T;
+              line2?: T;
+              city?: T;
+              state?: T;
+              postalCode?: T;
+              country?: T;
+            };
+      };
+  participants?:
+    | T
+    | {
+        fullName?: T;
+        email?: T;
+        phone?: T;
+        emergencyContact?:
+          | T
+          | {
+              name?: T;
+              phone?: T;
+              relationship?: T;
+            };
+        id?: T;
+      };
+  payment?:
+    | T
+    | {
+        amount?: T;
+        currency?: T;
+        stripePaymentIntentId?: T;
+        status?: T;
+      };
+  status?: T;
   notes?: T;
   updatedAt?: T;
   createdAt?: T;

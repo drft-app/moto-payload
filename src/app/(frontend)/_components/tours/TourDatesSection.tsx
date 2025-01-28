@@ -1,4 +1,5 @@
 import React from 'react'
+import Link from 'next/link'
 import { getPayloadClient } from '../../../../getPayload'
 import { TourDate } from '../../../../payload-types'
 
@@ -32,7 +33,7 @@ export default async function TourDatesSection({ tourId }: Props) {
     return (
       <div className="text-center py-4">
         <p className="text-gray-600">No upcoming dates available</p>
-        <button className="mt-4 px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700">
+        <button className="mt-4 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
           Request Custom Date
         </button>
       </div>
@@ -87,22 +88,25 @@ export default async function TourDatesSection({ tourId }: Props) {
                   .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
                   .join(' ')}
               </span>
-              <button
-                className={`px-4 py-2 rounded-lg ${
-                  date.availability === 'full' || date.availability === 'cancelled'
-                    ? 'bg-gray-300 cursor-not-allowed'
-                    : 'bg-primary-600 text-white hover:bg-primary-700'
-                }`}
-                disabled={date.availability === 'full' || date.availability === 'cancelled'}
-              >
-                {date.availability === 'full'
-                  ? 'Full'
-                  : date.availability === 'cancelled'
-                    ? 'Cancelled'
-                    : date.availability === 'waiting-list'
-                      ? 'Join Waitlist'
-                      : 'Book Now'}
-              </button>
+              {date.availability === 'full' || date.availability === 'cancelled' ? (
+                <button
+                  className="px-4 py-2 rounded-lg bg-gray-300 text-gray-600 cursor-not-allowed"
+                  disabled
+                >
+                  {date.availability === 'full' ? 'Full' : 'Cancelled'}
+                </button>
+              ) : (
+                <Link
+                  href={`/checkout/${date.id}`}
+                  className={`px-4 py-2 rounded-lg ${
+                    date.availability === 'waiting-list'
+                      ? 'bg-orange-100 text-orange-800 hover:bg-orange-200'
+                      : 'bg-orange-600 text-white hover:bg-orange-700'
+                  }`}
+                >
+                  {date.availability === 'waiting-list' ? 'Join Waitlist' : 'Book Now'}
+                </Link>
+              )}
             </div>
           </div>
         ))}
