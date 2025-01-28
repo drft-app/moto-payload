@@ -414,11 +414,9 @@ export const seed = async ({
   payload.logger.info(`— Seeding tours...`)
   await Promise.all(
     tours.map((tour) => {
-      const tourData = { ...tour }
-      tourData.featuredImage = image1ID
       return payload.create({
         collection: 'tours',
-        data: tourData,
+        data: JSON.parse(JSON.stringify(tour).replace(/"\{\{IMAGE_1\}\}"/g, String(image1ID))),
       })
     }),
   )
