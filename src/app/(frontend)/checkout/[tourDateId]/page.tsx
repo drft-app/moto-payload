@@ -1,7 +1,7 @@
 import { getPayloadClient } from '@/getPayload'
 import { notFound } from 'next/navigation'
-import { Checkout } from './Checkout'
 import { Tour } from '@/payload-types'
+import { CheckoutForm } from './CheckoutForm'
 
 interface Props {
   params: {
@@ -9,7 +9,10 @@ interface Props {
   }
 }
 
-export default async function CheckoutPage({ params: { tourDateId } }: Props) {
+export default async function CheckoutPage(props: Props) {
+  const { params } = await Promise.resolve(props)
+  const { tourDateId } = params
+
   const payload = await getPayloadClient()
 
   const tourDate = await payload.findByID({
@@ -41,7 +44,7 @@ export default async function CheckoutPage({ params: { tourDateId } }: Props) {
         <h1 className="text-3xl font-bold mb-8">Checkout</h1>
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           <div className="lg:col-span-2">
-            <Checkout tourDate={tourDate} />
+            <CheckoutForm tourDate={tourDate} />
           </div>
           <div className="bg-gray-50 p-6 rounded-lg h-fit">
             <h2 className="text-xl font-semibold mb-4">Order Summary</h2>

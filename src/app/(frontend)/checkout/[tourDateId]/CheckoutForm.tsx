@@ -1,3 +1,5 @@
+'use client'
+
 import { TourDate } from '@/payload-types'
 import { loadStripe } from '@stripe/stripe-js'
 import { useState } from 'react'
@@ -40,7 +42,7 @@ interface Props {
   tourDate: TourDate
 }
 
-export function Checkout({ tourDate }: Props) {
+export function CheckoutForm({ tourDate }: Props) {
   const [clientSecret, setClientSecret] = useState('')
   const [step, setStep] = useState<'details' | 'payment'>('details')
   const [loading, setLoading] = useState(false)
