@@ -3,13 +3,14 @@ import { stripe } from '@/lib/stripe'
 import Link from 'next/link'
 
 interface Props {
-  searchParams: {
+  searchParams: Promise<{
     session_id?: string
-  }
+  }>
 }
 
 export default async function ConfirmationPage({ searchParams }: Props) {
-  const sessionId = searchParams.session_id?.replace('{CHECKOUT_SESSION_ID}', '')
+  const { session_id } = await searchParams
+  const sessionId = session_id?.replace('{CHECKOUT_SESSION_ID}', '')
 
   if (!sessionId) {
     return (
