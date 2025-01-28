@@ -4,14 +4,11 @@ import { Tour } from '@/payload-types'
 import { CheckoutForm } from './CheckoutForm'
 
 interface Props {
-  params: {
-    tourDateId: string
-  }
+  params: Promise<{ tourDateId: string }>
 }
 
 export default async function CheckoutPage(props: Props) {
-  const { params } = await Promise.resolve(props)
-  const { tourDateId } = params
+  const { tourDateId } = await props.params
 
   const payload = await getPayloadClient()
 
