@@ -1,5 +1,6 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
+import { ChevronDown, ChevronUp } from 'lucide-react'
 
 const difficulties = [
   { label: 'Easy', value: 'easy' },
@@ -18,32 +19,64 @@ const durations = [
 export default function TourFilters() {
   const router = useRouter()
   const searchParams = useSearchParams()
+  const [expandedSections, setExpandedSections] = useState({
+    difficulty: true,
+    duration: true,
+    price: true,
+  })
 
   const currentDifficulty = searchParams.get('difficulty')
   const currentDuration = searchParams.get('duration')
   const currentMinPrice = searchParams.get('minPrice')
   const currentMaxPrice = searchParams.get('maxPrice')
 
+  const toggleSection = (section: keyof typeof expandedSections) => {
+    setExpandedSections((prev) => ({
+      ...prev,
+      [section]: !prev[section],
+    }))
+  }
+
   const updateFilters = (key: string, value: string | null) => {
     const params = new URLSearchParams(searchParams.toString())
-
     if (value === null) {
       params.delete(key)
     } else {
       params.set(key, value)
     }
-
-    router.push(`/tours?${params.toString()}`)
+    router.push(`?${params.toString()}`)
   }
 
-  return (
-    <div className="bg-white rounded-lg shadow-md p-6">
-      <h2 className="text-xl font-semibold mb-6">Filter Tours</h2>
+  const FilterSection = ({
+    title,
+    section,
+    children,
+  }: {
+    title: string
+    section: keyof typeof expandedSections
+    children: React.ReactNode
+  }) => (
+    <div className="border-b last:border-b-0 py-4">
+      <button
+        onClick={() => toggleSection(section)}
+        className="flex items-center justify-between w-full text-left mb-2"
+      >
+        <h3 className="font-medium text-lg">{title}</h3>
+        {expandedSections[section] ? (
+          <ChevronUp className="w-5 h-5" />
+        ) : (
+          <ChevronDown className="w-5 h-5" />
+        )}
+      </button>
+      {expandedSections[section] && children}
+    </div>
+  )
 
+  return (
+    <div>
       {/* Difficulty Filter */}
-      <div className="mb-6">
-        <h3 className="font-medium mb-3">Difficulty Level</h3>
-        <div className="space-y-2">
+      <FilterSection title="Difficulty" section="difficulty">
+        <div className="space-y-3">
           {difficulties.map(({ label, value }) => (
             <label key={value} className="flex items-center">
               <input
@@ -52,18 +85,17 @@ export default function TourFilters() {
                 value={value}
                 checked={currentDifficulty === value}
                 onChange={(e) => updateFilters('difficulty', e.target.checked ? value : null)}
-                className="mr-2"
+                className="mr-3 w-4 h-4"
               />
-              {label}
+              <span className="text-base">{label}</span>
             </label>
           ))}
         </div>
-      </div>
+      </FilterSection>
 
       {/* Duration Filter */}
-      <div className="mb-6">
-        <h3 className="font-medium mb-3">Duration</h3>
-        <div className="space-y-2">
+      <FilterSection title="Duration" section="duration">
+        <div className="space-y-3">
           {durations.map(({ label, value }) => (
             <label key={value} className="flex items-center">
               <input
@@ -72,48 +104,39 @@ export default function TourFilters() {
                 value={value}
                 checked={currentDuration === value}
                 onChange={(e) => updateFilters('duration', e.target.checked ? value : null)}
-                className="mr-2"
+                className="mr-3 w-4 h-4"
               />
-              {label}
+              <span className="text-base">{label}</span>
             </label>
           ))}
         </div>
-      </div>
+      </FilterSection>
 
       {/* Price Range Filter */}
-      <div className="mb-6">
-        <h3 className="font-medium mb-3">Price Range (USD)</h3>
+      <FilterSection title="Price Range (USD)" section="price">
         <div className="space-y-4">
           <div>
-            <label className="block text-sm mb-1">Min Price</label>
+            <label className="block text-sm mb-2">Min Price</label>
             <input
               type="number"
               value={currentMinPrice || ''}
               onChange={(e) => updateFilters('minPrice', e.target.value || null)}
-              className="w-full px-3 py-2 border rounded"
+              className="w-full px-3 py-2 border rounded-lg text-base"
               placeholder="0"
             />
           </div>
           <div>
-            <label className="block text-sm mb-1">Max Price</label>
+            <label className="block text-sm mb-2">Max Price</label>
             <input
               type="number"
               value={currentMaxPrice || ''}
               onChange={(e) => updateFilters('maxPrice', e.target.value || null)}
-              className="w-full px-3 py-2 border rounded"
+              className="w-full px-3 py-2 border rounded-lg text-base"
               placeholder="10000"
             />
           </div>
         </div>
-      </div>
-
-      {/* Clear Filters Button */}
-      <button
-        onClick={() => router.push('/tours')}
-        className="w-full py-2 text-center text-primary-600 hover:text-primary-700 font-medium"
-      >
-        Clear All Filters
-      </button>
+      </FilterSection>
     </div>
   )
 }
