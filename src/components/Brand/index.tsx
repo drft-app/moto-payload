@@ -6,6 +6,6 @@ interface BrandProps {
 
 export const Brand: React.FC<BrandProps> = ({ className }) => {
   return (
-    <div className={`text-2xl font-bold text-orange-600 ${className || ''}`}>China Adventures</div>
+    <div className={`text-2xl font-bold text-orange-600 ${className || ''}`}>China Moto Tours</div>
   )
 }

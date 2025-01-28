@@ -46,7 +46,7 @@ export const tours: TourSeed[] = [
     fullDescription: createRichText(
       'Follow in the footsteps of ancient traders on this epic motorcycle adventure along the legendary Silk Road. Experience the stark beauty of the Gobi Desert, explore ancient caravanserais, and ride through the stunning Tianshan Mountains.',
     ),
-    featuredImage: '{{TOUR_1}}',
+    featuredImage: '{{IMAGE_1}}',
     itinerary: [
       {
         day: 1,
@@ -89,7 +89,7 @@ export const tours: TourSeed[] = [
     fullDescription: createRichText(
       "Journey to the roof of the world on this challenging high-altitude expedition. Ride through the Himalayas, visit ancient monasteries, and experience the unique Tibetan culture while testing your riding skills on some of the world's most spectacular roads.",
     ),
-    featuredImage: '{{TOUR_2}}',
+    featuredImage: '{{IMAGE_1}}',
     itinerary: [
       {
         day: 1,
@@ -132,7 +132,7 @@ export const tours: TourSeed[] = [
     fullDescription: createRichText(
       "Experience the majesty of the Great Wall from two wheels on this incredible journey. Ride along ancient sections of the wall, explore hidden watchtowers, and camp under the stars in some of China's most scenic locations.",
     ),
-    featuredImage: '{{TOUR_3}}',
+    featuredImage: '{{IMAGE_1}}',
     itinerary: [
       {
         day: 1,
