@@ -98,8 +98,8 @@ export const plugins: Plugin[] = [
     bucket: 'tanze-public',
     config: {
       credentials: {
-        accessKeyId: process.env.S3_ACCESS_KEY_ID,
-        secretAccessKey: process.env.S3_SECRET_ACCESS_KEY,
+        accessKeyId: process.env.S3_ACCESS_KEY_ID || '',
+        secretAccessKey: process.env.S3_SECRET_ACCESS_KEY || '',
       },
       region: 'us-west-2',
       // ... Other S3 configuration
