@@ -1,18 +1,18 @@
+import { revalidateRedirects } from '@/hooks/revalidateRedirects'
+import { Page, Post } from '@/payload-types'
+import { beforeSyncWithSearch } from '@/search/beforeSync'
+import { searchFields } from '@/search/fieldOverrides'
+import { getServerSideURL } from '@/utilities/getURL'
 import { payloadCloudPlugin } from '@payloadcms/payload-cloud'
 import { formBuilderPlugin } from '@payloadcms/plugin-form-builder'
 import { nestedDocsPlugin } from '@payloadcms/plugin-nested-docs'
 import { redirectsPlugin } from '@payloadcms/plugin-redirects'
-import { seoPlugin } from '@payloadcms/plugin-seo'
 import { searchPlugin } from '@payloadcms/plugin-search'
-import { Plugin } from 'payload'
-import { revalidateRedirects } from '@/hooks/revalidateRedirects'
+import { seoPlugin } from '@payloadcms/plugin-seo'
 import { GenerateTitle, GenerateURL } from '@payloadcms/plugin-seo/types'
 import { FixedToolbarFeature, HeadingFeature, lexicalEditor } from '@payloadcms/richtext-lexical'
-import { searchFields } from '@/search/fieldOverrides'
-import { beforeSyncWithSearch } from '@/search/beforeSync'
-import { vercelBlobStorage } from '@payloadcms/storage-vercel-blob'
-import { Page, Post } from '@/payload-types'
-import { getServerSideURL } from '@/utilities/getURL'
+import { s3Storage } from '@payloadcms/storage-s3'
+import { Plugin } from 'payload'
 
 const generateTitle: GenerateTitle<Post | Page> = ({ doc }) => {
   return doc?.title ? `${doc.title} | Payload Website Template` : 'Payload Website Template'
@@ -91,13 +91,27 @@ export const plugins: Plugin[] = [
     },
   }),
   payloadCloudPlugin(),
-  vercelBlobStorage({
-    enabled: true, // Optional, defaults to true
-    // Specify which collections should use Vercel Blob
+  s3Storage({
     collections: {
       media: true,
     },
-    // Token provided by Vercel once Blob storage is added to your Vercel project
-    token: process.env.BLOB_READ_WRITE_TOKEN,
+    bucket: process.env.S3_BUCKET,
+    config: {
+      credentials: {
+        accessKeyId: process.env.S3_ACCESS_KEY_ID,
+        secretAccessKey: process.env.S3_SECRET_ACCESS_KEY,
+      },
+      region: process.env.S3_REGION,
+      // ... Other S3 configuration
+    },
   }),
+  // vercelBlobStorage({
+  //   enabled: true, // Optional, defaults to true
+  //   // Specify which collections should use Vercel Blob
+  //   collections: {
+  //     media: true,
+  //   },
+  //   // Token provided by Vercel once Blob storage is added to your Vercel project
+  //   token: process.env.BLOB_READ_WRITE_TOKEN,
+  // }),
 ]
