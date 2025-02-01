@@ -95,13 +95,13 @@ export const plugins: Plugin[] = [
     collections: {
       media: true,
     },
-    bucket: process.env.S3_BUCKET,
+    bucket: 'tanze-public',
     config: {
       credentials: {
         accessKeyId: process.env.S3_ACCESS_KEY_ID,
         secretAccessKey: process.env.S3_SECRET_ACCESS_KEY,
       },
-      region: process.env.S3_REGION,
+      region: 'us-west-2',
       // ... Other S3 configuration
     },
   }),
