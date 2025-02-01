@@ -1,0 +1,10 @@
+[build]
+  command = "pnpm netlify:build"
+  publish = ".next"
+
+[build.environment]
+  NODE_VERSION = "20.9.0"
+  NPM_FLAGS = "--version"
+
+[[plugins]]
+  package = "@netlify/plugin-nextjs" 
