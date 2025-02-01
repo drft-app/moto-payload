@@ -39,7 +39,7 @@ importers:
         specifier: latest
         version: 3.19.0(7324pcgm65nnt3bf3ygqs6roqe)
       '@payloadcms/storage-s3':
-        specifier: ^3.20.0
+        specifier: ^3.19.0
         version: 3.20.0(payload@3.19.0(graphql@16.10.0)(monaco-editor@0.52.2)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(typescript@5.7.3))
       '@payloadcms/storage-vercel-blob':
         specifier: ^3.19.0
