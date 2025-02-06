@@ -1,0 +1,14 @@
+[build]
+  command = "pnpm netlify:build"
+  publish = ".next"
+
+[build.environment]
+  NODE_VERSION = "20.9.0"
+  NPM_FLAGS = "--version"
+
+[[plugins]]
+  package = "@netlify/plugin-nextjs"
+
+[functions]
+  external_node_modules = ["sharp"]
+  included_files = ["node_modules/sharp/**/*"]

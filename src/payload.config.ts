@@ -1,26 +1,23 @@
-// storage-adapter-import-placeholder
+import { defaultLexical } from '@/fields/defaultLexical'
 import { mongooseAdapter } from '@payloadcms/db-mongodb'
-
-import sharp from 'sharp' // sharp-import
 import path from 'path'
 import { buildConfig, PayloadRequest } from 'payload'
+import sharp from 'sharp'
 import { fileURLToPath } from 'url'
-
+import { Bookings } from './collections/Bookings'
 import { Categories } from './collections/Categories'
+import { Destinations } from './collections/Destinations'
 import { Media } from './collections/Media'
 import { Pages } from './collections/Pages'
 import { Posts } from './collections/Posts'
-import { Users } from './collections/Users'
+import { Reviews } from './collections/Reviews'
+import { TourDates } from './collections/TourDates'
 import { Tours } from './collections/Tours'
-import { Destinations } from './collections/Destinations'
+import { Users } from './collections/Users'
 import { Footer } from './Footer/config'
 import { Header } from './Header/config'
 import { plugins } from './plugins'
-import { defaultLexical } from '@/fields/defaultLexical'
 import { getServerSideURL } from './utilities/getURL'
-import { Reviews } from './collections/Reviews'
-import { TourDates } from './collections/TourDates'
-import { Bookings } from './collections/Bookings'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -86,10 +83,10 @@ export default buildConfig({
     // storage-adapter-placeholder
   ],
   secret: process.env.PAYLOAD_SECRET,
-  sharp,
   typescript: {
     outputFile: path.resolve(dirname, 'payload-types.ts'),
   },
+  sharp,
   jobs: {
     access: {
       run: ({ req }: { req: PayloadRequest }): boolean => {
