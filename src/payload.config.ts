@@ -1,5 +1,6 @@
 import { defaultLexical } from '@/fields/defaultLexical'
 import { mongooseAdapter } from '@payloadcms/db-mongodb'
+import { resendAdapter } from '@payloadcms/email-resend'
 import path from 'path'
 import { buildConfig, PayloadRequest } from 'payload'
 import sharp from 'sharp'
@@ -102,4 +103,9 @@ export default buildConfig({
     },
     tasks: [],
   },
+  email: resendAdapter({
+    defaultFromAddress: 'hi@mototourchina.com',
+    defaultFromName: 'Moto Tour China',
+    apiKey: process.env.RESEND_API_KEY || '',
+  }),
 })
