@@ -1,11 +1,9 @@
-// storage-adapter-import-placeholder
+import { defaultLexical } from '@/fields/defaultLexical'
 import { mongooseAdapter } from '@payloadcms/db-mongodb'
-
 import path from 'path'
 import { buildConfig, PayloadRequest } from 'payload'
+import sharp from 'sharp'
 import { fileURLToPath } from 'url'
-
-import { defaultLexical } from '@/fields/defaultLexical'
 import { Bookings } from './collections/Bookings'
 import { Categories } from './collections/Categories'
 import { Destinations } from './collections/Destinations'
@@ -88,6 +86,7 @@ export default buildConfig({
   typescript: {
     outputFile: path.resolve(dirname, 'payload-types.ts'),
   },
+  sharp,
   jobs: {
     access: {
       run: ({ req }: { req: PayloadRequest }): boolean => {
