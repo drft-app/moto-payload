@@ -2,13 +2,6 @@ import React, { useState } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { ChevronDown, ChevronUp } from 'lucide-react'
 
-const difficulties = [
-  { label: 'Easy', value: 'easy' },
-  { label: 'Moderate', value: 'moderate' },
-  { label: 'Challenging', value: 'challenging' },
-  { label: 'Expert', value: 'expert' },
-]
-
 const durations = [
   { label: '1-3 days', value: '3' },
   { label: '4-7 days', value: '7' },
@@ -20,12 +13,10 @@ export default function TourFilters() {
   const router = useRouter()
   const searchParams = useSearchParams()
   const [expandedSections, setExpandedSections] = useState({
-    difficulty: true,
     duration: true,
     price: true,
   })
 
-  const currentDifficulty = searchParams.get('difficulty')
   const currentDuration = searchParams.get('duration')
   const currentMinPrice = searchParams.get('minPrice')
   const currentMaxPrice = searchParams.get('maxPrice')
@@ -74,25 +65,6 @@ export default function TourFilters() {
 
   return (
     <div>
-      {/* Difficulty Filter */}
-      <FilterSection title="Difficulty" section="difficulty">
-        <div className="space-y-3">
-          {difficulties.map(({ label, value }) => (
-            <label key={value} className="flex items-center">
-              <input
-                type="radio"
-                name="difficulty"
-                value={value}
-                checked={currentDifficulty === value}
-                onChange={(e) => updateFilters('difficulty', e.target.checked ? value : null)}
-                className="mr-3 w-4 h-4"
-              />
-              <span className="text-base">{label}</span>
-            </label>
-          ))}
-        </div>
-      </FilterSection>
-
       {/* Duration Filter */}
       <FilterSection title="Duration" section="duration">
         <div className="space-y-3">

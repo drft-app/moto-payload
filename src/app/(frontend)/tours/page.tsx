@@ -13,7 +13,6 @@ export const metadata: Metadata = {
 }
 
 export type TourFilters = {
-  difficulty?: string
   region?: string
   minPrice?: number
   maxPrice?: number

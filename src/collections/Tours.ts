@@ -1,8 +1,8 @@
+import { defaultLexical } from '@/fields/defaultLexical'
+import { slugField } from '@/fields/slug'
 import type { CollectionConfig } from 'payload'
 import { anyone } from '../access/anyone'
 import { authenticated } from '../access/authenticated'
-import { slugField } from '@/fields/slug'
-import { defaultLexical } from '@/fields/defaultLexical'
 
 export const Tours: CollectionConfig = {
   slug: 'tours',
@@ -14,7 +14,7 @@ export const Tours: CollectionConfig = {
   },
   admin: {
     useAsTitle: 'title',
-    defaultColumns: ['title', 'duration', 'price', 'difficulty'],
+    defaultColumns: ['title', 'duration', 'price'],
   },
   fields: [
     {
@@ -69,17 +69,6 @@ export const Tours: CollectionConfig = {
       admin: {
         description: 'Price in USD',
       },
-    },
-    {
-      name: 'difficulty',
-      type: 'select',
-      required: true,
-      options: [
-        { label: 'Easy', value: 'easy' },
-        { label: 'Moderate', value: 'moderate' },
-        { label: 'Challenging', value: 'challenging' },
-        { label: 'Expert', value: 'expert' },
-      ],
     },
     {
       name: 'included',

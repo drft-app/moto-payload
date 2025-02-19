@@ -45,21 +45,6 @@ export default function TourCard({ tour }: TourCardProps) {
               </span>
               <span className="text-sm text-gray-500 ml-1">USD</span>
             </div>
-            <div className="flex items-center gap-2">
-              <span
-                className={`px-2 py-1 text-xs rounded-full ${
-                  tour.difficulty === 'easy'
-                    ? 'bg-green-100 text-green-800'
-                    : tour.difficulty === 'moderate'
-                      ? 'bg-yellow-100 text-yellow-800'
-                      : tour.difficulty === 'challenging'
-                        ? 'bg-orange-100 text-orange-800'
-                        : 'bg-red-100 text-red-800'
-                }`}
-              >
-                {tour.difficulty.charAt(0).toUpperCase() + tour.difficulty.slice(1)}
-              </span>
-            </div>
           </div>
         </div>
       </div>

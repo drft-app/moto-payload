@@ -79,7 +79,7 @@ export const Card: React.FC<{
       )
     } else {
       const tourDoc = doc as Tour
-      const { featuredImage, duration, price, difficulty, shortDescription } = tourDoc
+      const { featuredImage, duration, price, shortDescription } = tourDoc
 
       return (
         <>
@@ -87,13 +87,6 @@ export const Card: React.FC<{
             {featuredImage && typeof featuredImage === 'object' && 'url' in featuredImage && (
               <Media resource={featuredImage} size="33vw" />
             )}
-            <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-3 sm:p-4">
-              <div className="text-white">
-                <span className="inline-block px-3 py-1 text-sm bg-primary-600 rounded-full">
-                  {duration} days
-                </span>
-              </div>
-            </div>
           </div>
           <div className="p-3 sm:p-4 flex-1 flex flex-col">
             <h3 className="text-lg sm:text-xl font-semibold mb-2 group-hover:text-primary-600 line-clamp-2">
@@ -110,15 +103,8 @@ export const Card: React.FC<{
                 <span className="text-sm text-gray-500 ml-1">USD</span>
               </div>
               <div className="flex items-center gap-2">
-                <span
-                  className={cn('px-2 py-1 text-xs rounded-full', {
-                    'bg-green-100 text-green-800': difficulty === 'easy',
-                    'bg-yellow-100 text-yellow-800': difficulty === 'moderate',
-                    'bg-orange-100 text-orange-800': difficulty === 'challenging',
-                    'bg-red-100 text-red-800': difficulty === 'expert',
-                  })}
-                >
-                  {difficulty.charAt(0).toUpperCase() + difficulty.slice(1)}
+                <span className="inline-block px-3 py-1 text-sm bg-primary-600 rounded-full">
+                  {duration} days
                 </span>
               </div>
             </div>

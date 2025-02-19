@@ -503,7 +503,6 @@ export interface Tour {
    * Price in USD
    */
   price: number;
-  difficulty: 'easy' | 'moderate' | 'challenging' | 'expert';
   included?:
     | {
         item: string;
@@ -1468,7 +1467,6 @@ export interface ToursSelect<T extends boolean = true> {
   fullDescription?: T;
   duration?: T;
   price?: T;
-  difficulty?: T;
   included?:
     | T
     | {
