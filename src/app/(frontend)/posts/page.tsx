@@ -24,6 +24,9 @@ export default async function Page() {
       slug: true,
       categories: true,
       meta: true,
+      content: true,
+      updatedAt: true,
+      createdAt: true,
     },
   })
 
@@ -45,7 +48,7 @@ export default async function Page() {
         />
       </div>
 
-      <CollectionArchive posts={posts.docs} />
+      <CollectionArchive items={posts.docs} type="posts" />
 
       <div className="container">
         {posts.totalPages > 1 && posts.page && (
