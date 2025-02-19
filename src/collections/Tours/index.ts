@@ -167,6 +167,14 @@ export const Tours: CollectionConfig = {
       required: true,
     },
     {
+      name: 'subtitle',
+      type: 'text',
+      required: true,
+      admin: {
+        description: 'Subtitle for the tour',
+      },
+    },
+    {
       name: 'fullDescription',
       type: 'richText',
       required: true,

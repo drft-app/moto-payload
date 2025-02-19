@@ -532,6 +532,10 @@ export interface Tour {
       }[]
     | null;
   shortDescription: string;
+  /**
+   * Subtitle for the tour
+   */
+  subtitle: string;
   fullDescription: {
     root: {
       type: string;
@@ -1540,6 +1544,7 @@ export interface ToursSelect<T extends boolean = true> {
         id?: T;
       };
   shortDescription?: T;
+  subtitle?: T;
   fullDescription?: T;
   duration?: T;
   ridingDays?: T;
