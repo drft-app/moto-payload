@@ -9,6 +9,22 @@ import RichText from '@/components/RichText'
 
 export const revalidate = 600
 
+export async function generateStaticParams() {
+  const payload = await getPayloadClient()
+  const tours = await payload.find({
+    collection: 'tours',
+    limit: 1000,
+    depth: 0,
+    select: {
+      slug: true,
+    },
+  })
+
+  return tours.docs.map(({ slug }) => ({
+    slug,
+  }))
+}
+
 interface Props {
   params: Promise<{ slug: string }>
 }

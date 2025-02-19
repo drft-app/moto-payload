@@ -1,8 +1,9 @@
 import { defaultLexical } from '@/fields/defaultLexical'
 import { slugField } from '@/fields/slug'
 import type { CollectionConfig } from 'payload'
-import { anyone } from '../access/anyone'
-import { authenticated } from '../access/authenticated'
+import { anyone } from '../../access/anyone'
+import { authenticated } from '../../access/authenticated'
+import { revalidateDelete, revalidateTour } from './hooks/revalidateTour'
 
 export const Tours: CollectionConfig = {
   slug: 'tours',
@@ -15,6 +16,10 @@ export const Tours: CollectionConfig = {
   admin: {
     useAsTitle: 'title',
     defaultColumns: ['title', 'duration', 'price'],
+  },
+  hooks: {
+    afterChange: [revalidateTour],
+    afterDelete: [revalidateDelete],
   },
   fields: [
     {
