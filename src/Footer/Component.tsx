@@ -1,11 +1,9 @@
 import { getCachedGlobal } from '@/utilities/getGlobals'
-import Link from 'next/link'
 import React from 'react'
 
 import type { Footer } from '@/payload-types'
 
 import { CMSLink } from '@/components/Link'
-import { Brand } from '@/components/Brand'
 
 export async function Footer() {
   const footerData: Footer = await getCachedGlobal('footer', 1)()
@@ -16,9 +14,9 @@ export async function Footer() {
     <footer className="mt-auto border-t border-border bg-black text-white">
       <div className="container py-8 gap-8 flex flex-col md:flex-row md:justify-between">
         <div className="flex flex-col gap-4">
-          <Link className="flex items-center" href="/">
-            <Brand className="text-white" />
-          </Link>
+          <span className="text-white text-xl">
+            Moto tour China operated by Tanzemoto-official partner of BMW Motorrad China
+          </span>
           <p className="text-sm text-gray-400">
             © {new Date().getFullYear()} All rights reserved.
           </p>
