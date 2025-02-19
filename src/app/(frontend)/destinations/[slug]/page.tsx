@@ -3,7 +3,6 @@ import Image from 'next/image'
 import { notFound } from 'next/navigation'
 import { getPayloadClient } from '../../../../getPayload'
 import { Destination } from '../../../../payload-types'
-import TourCard from '../../_components/tours/TourCard'
 import RichText from '@/components/RichText'
 
 interface Props {
@@ -140,26 +139,6 @@ export default async function DestinationPage({ params }: Props) {
                       )}
                     </div>
                   ))}
-                </div>
-              </section>
-            )}
-          </div>
-
-          {/* Right Column - Tours */}
-          <div className="lg:col-span-1">
-            {destination.relatedTours && destination.relatedTours.length > 0 && (
-              <section className="bg-white rounded-lg shadow-md p-4 sm:p-6 sticky top-20">
-                <h2 className="text-2xl font-semibold mb-4">Available Tours</h2>
-                <div className="space-y-4">
-                  {destination.relatedTours?.map(
-                    (tour) =>
-                      typeof tour === 'object' &&
-                      'id' in tour && (
-                        <div key={tour.id} className="border-b pb-4 last:border-b-0 last:pb-0">
-                          <TourCard tour={tour} />
-                        </div>
-                      ),
-                  )}
                 </div>
               </section>
             )}
