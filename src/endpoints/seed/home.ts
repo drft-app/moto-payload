@@ -69,11 +69,6 @@ export const home: RequiredDataFromCollectionSlug<'pages'> = {
   },
   layout: [
     {
-      blockName: 'Featured Tours',
-      blockType: 'featuredTours',
-      heading: 'Featured Tours',
-    },
-    {
       blockName: 'Why Choose Us',
       blockType: 'content',
       columns: [
