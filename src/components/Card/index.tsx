@@ -83,9 +83,9 @@ export const Card: React.FC<{
 
       return (
         <>
-          <div className="relative h-40 sm:h-48">
+          <div className="relative h-40 sm:h-48 w-full">
             {featuredImage && typeof featuredImage === 'object' && 'url' in featuredImage && (
-              <Media resource={featuredImage} size="33vw" />
+              <Media resource={featuredImage} size="33vw" fill imgClassName="object-cover" />
             )}
           </div>
           <div className="p-3 sm:p-4 flex-1 flex flex-col">
