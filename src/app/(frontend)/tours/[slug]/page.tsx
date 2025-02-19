@@ -71,6 +71,14 @@ export default async function TourPage({ params }: Props) {
 
   return (
     <div className="min-h-screen bg-gray-50">
+      {/* Title Section */}
+      <div className="bg-white">
+        <div className="container mx-auto px-4 py-8">
+          <h1 className="text-5xl font-black mb-4">{tour.title}</h1>
+          <div className="text-xl">from ${tour.price.toLocaleString()}</div>
+        </div>
+      </div>
+
       {/* Hero Section */}
       <div className="relative h-[60vh] min-h-[400px]">
         {tour.featuredImage &&
@@ -84,17 +92,6 @@ export default async function TourPage({ params }: Props) {
               priority
             />
           )}
-        <div className="absolute inset-0 bg-black/40" />
-        <div className="absolute inset-0 flex items-center">
-          <div className="container mx-auto px-4">
-            <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">{tour.title}</h1>
-            <div className="flex gap-4 text-white">
-              <span className="bg-primary-600 px-3 py-1 rounded-full text-sm">
-                {tour.duration} days
-              </span>
-            </div>
-          </div>
-        </div>
       </div>
 
       {/* Facts Section */}
