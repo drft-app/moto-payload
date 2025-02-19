@@ -29,6 +29,121 @@ export const Tours: CollectionConfig = {
     },
     ...slugField(),
     {
+      name: 'startLocation',
+      type: 'text',
+      required: true,
+      admin: {
+        description: 'Starting city/location of the tour',
+      },
+    },
+    {
+      name: 'endLocation',
+      type: 'text',
+      required: true,
+      admin: {
+        description: 'Ending city/location of the tour',
+      },
+    },
+    {
+      name: 'startAirport',
+      type: 'text',
+      required: true,
+      admin: {
+        description: 'Nearest airport to start location (with code)',
+      },
+    },
+    {
+      name: 'endAirport',
+      type: 'text',
+      required: true,
+      admin: {
+        description: 'Nearest airport to end location (with code)',
+      },
+    },
+    {
+      name: 'totalDistance',
+      type: 'group',
+      fields: [
+        {
+          name: 'min',
+          type: 'number',
+          required: true,
+          admin: {
+            description: 'Minimum total distance in kilometers',
+          },
+        },
+        {
+          name: 'max',
+          type: 'number',
+          required: true,
+          admin: {
+            description: 'Maximum total distance in kilometers',
+          },
+        },
+      ],
+    },
+    {
+      name: 'dailyDistance',
+      type: 'group',
+      fields: [
+        {
+          name: 'min',
+          type: 'number',
+          required: true,
+          admin: {
+            description: 'Minimum daily distance in kilometers',
+          },
+        },
+        {
+          name: 'max',
+          type: 'number',
+          required: true,
+          admin: {
+            description: 'Maximum daily distance in kilometers',
+          },
+        },
+      ],
+    },
+    {
+      name: 'difficulty',
+      type: 'number',
+      required: true,
+      min: 1,
+      max: 5,
+      admin: {
+        description: 'Difficulty rating from 1 (easiest) to 5 (most difficult)',
+      },
+    },
+    {
+      name: 'travelTimeRating',
+      type: 'number',
+      required: true,
+      min: 1,
+      max: 5,
+      admin: {
+        description: 'Travel time intensity from 1 (short daily rides) to 5 (long daily rides)',
+      },
+    },
+    {
+      name: 'sightseeing',
+      type: 'number',
+      required: true,
+      min: 1,
+      max: 5,
+      admin: {
+        description: 'Sightseeing opportunities from 1 (limited) to 5 (extensive)',
+      },
+    },
+    {
+      name: 'minimumParticipants',
+      type: 'number',
+      required: true,
+      min: 1,
+      admin: {
+        description: 'Minimum number of participants required for the tour',
+      },
+    },
+    {
       name: 'featuredImage',
       type: 'upload',
       relationTo: 'media',
@@ -52,6 +167,14 @@ export const Tours: CollectionConfig = {
       required: true,
     },
     {
+      name: 'subtitle',
+      type: 'text',
+      required: true,
+      admin: {
+        description: 'Subtitle for the tour',
+      },
+    },
+    {
       name: 'fullDescription',
       type: 'richText',
       required: true,
@@ -64,6 +187,15 @@ export const Tours: CollectionConfig = {
       min: 1,
       admin: {
         description: 'Duration in days',
+      },
+    },
+    {
+      name: 'ridingDays',
+      type: 'number',
+      required: true,
+      min: 1,
+      admin: {
+        description: 'Number of riding days',
       },
     },
     {

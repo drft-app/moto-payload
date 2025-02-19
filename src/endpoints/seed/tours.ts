@@ -43,6 +43,24 @@ export const tours: TourSeed[] = [
     price: 4999,
     shortDescription:
       "Epic 15-day journey through ancient trade routes, desert landscapes, and historic cities along China's legendary Silk Road.",
+    subtitle: 'Silk Road Adventure',
+    startLocation: "Xi'an",
+    endLocation: 'Urumqi',
+    startAirport: 'XIY',
+    endAirport: 'URC',
+    totalDistance: {
+      min: 3000,
+      max: 4000,
+    },
+    dailyDistance: {
+      min: 200,
+      max: 300,
+    },
+    difficulty: 4,
+    travelTimeRating: 4,
+    sightseeing: 4,
+    minimumParticipants: 2,
+    ridingDays: 10,
     fullDescription: createRichText(
       'Follow in the footsteps of ancient traders on this epic motorcycle adventure along the legendary Silk Road. Experience the stark beauty of the Gobi Desert, explore ancient caravanserais, and ride through the stunning Tianshan Mountains.',
     ),
@@ -75,92 +93,6 @@ export const tours: TourSeed[] = [
       { requirement: 'Valid motorcycle license with at least 3 years experience' },
       { requirement: 'Experience with large adventure motorcycles' },
       { requirement: 'Good physical fitness' },
-    ],
-  },
-  {
-    title: 'Tibet Expedition',
-    slug: 'tibet-expedition',
-    _status: 'published',
-    featured: true,
-    duration: 12,
-    price: 5999,
-    shortDescription:
-      "High-altitude adventure through Tibet's stunning monasteries, mountain passes, and unique culture.",
-    fullDescription: createRichText(
-      "Journey to the roof of the world on this challenging high-altitude expedition. Ride through the Himalayas, visit ancient monasteries, and experience the unique Tibetan culture while testing your riding skills on some of the world's most spectacular roads.",
-    ),
-    featuredImage: '{{IMAGE_1}}',
-    itinerary: [
-      {
-        day: 1,
-        title: 'Lhasa Acclimatization',
-        description: createRichText(
-          'Arrival in Lhasa, acclimatization, and visit to Potala Palace.',
-        ),
-        distance: 0,
-      },
-      {
-        day: 2,
-        title: 'Lhasa to Gyantse',
-        description: createRichText(
-          'First riding day, crossing Kamba La Pass (4794m) with views of Yamdrok Lake.',
-        ),
-        distance: 261,
-      },
-    ],
-    included: [
-      { item: 'High-altitude modified adventure motorcycle' },
-      { item: 'Oxygen supply and medical support' },
-      { item: 'Tibet travel permits and visas' },
-      { item: 'All meals and accommodation' },
-    ],
-    requirements: [
-      { requirement: 'Previous high-altitude riding experience' },
-      { requirement: 'Excellent physical fitness' },
-      { requirement: 'Medical clearance for high-altitude travel' },
-    ],
-  },
-  {
-    title: 'Great Wall Ride',
-    slug: 'great-wall-ride',
-    _status: 'published',
-    featured: true,
-    duration: 7,
-    price: 2999,
-    shortDescription:
-      'Seven days following the ancient Great Wall through rugged mountains and historic watchtowers.',
-    fullDescription: createRichText(
-      "Experience the majesty of the Great Wall from two wheels on this incredible journey. Ride along ancient sections of the wall, explore hidden watchtowers, and camp under the stars in some of China's most scenic locations.",
-    ),
-    featuredImage: '{{IMAGE_1}}',
-    itinerary: [
-      {
-        day: 1,
-        title: 'Beijing to Mutianyu',
-        description: createRichText(
-          'Ride to Mutianyu Great Wall section, afternoon hiking and photography.',
-        ),
-        distance: 150,
-      },
-      {
-        day: 2,
-        title: 'Mutianyu to Gubeikou',
-        description: createRichText(
-          'Off-road adventure following the wall through mountains and forests.',
-        ),
-        distance: 180,
-      },
-    ],
-    included: [
-      { item: 'Choice of adventure motorcycles' },
-      { item: 'Mix of hotel and luxury camping accommodation' },
-      { item: 'Professional photography service' },
-      { item: 'All meals and snacks' },
-    ],
-    requirements: [
-      { requirement: 'Valid motorcycle license' },
-      { requirement: 'Moderate fitness level' },
-      { requirement: 'Comfortable with off-road riding' },
     ],
   },
 ]

@@ -472,6 +472,58 @@ export interface Tour {
   title: string;
   slug?: string | null;
   slugLock?: boolean | null;
+  /**
+   * Starting city/location of the tour
+   */
+  startLocation: string;
+  /**
+   * Ending city/location of the tour
+   */
+  endLocation: string;
+  /**
+   * Nearest airport to start location (with code)
+   */
+  startAirport: string;
+  /**
+   * Nearest airport to end location (with code)
+   */
+  endAirport: string;
+  totalDistance: {
+    /**
+     * Minimum total distance in kilometers
+     */
+    min: number;
+    /**
+     * Maximum total distance in kilometers
+     */
+    max: number;
+  };
+  dailyDistance: {
+    /**
+     * Minimum daily distance in kilometers
+     */
+    min: number;
+    /**
+     * Maximum daily distance in kilometers
+     */
+    max: number;
+  };
+  /**
+   * Difficulty rating from 1 (easiest) to 5 (most difficult)
+   */
+  difficulty: number;
+  /**
+   * Travel time intensity from 1 (short daily rides) to 5 (long daily rides)
+   */
+  travelTimeRating: number;
+  /**
+   * Sightseeing opportunities from 1 (limited) to 5 (extensive)
+   */
+  sightseeing: number;
+  /**
+   * Minimum number of participants required for the tour
+   */
+  minimumParticipants: number;
   featuredImage: string | Media;
   gallery?:
     | {
@@ -480,6 +532,10 @@ export interface Tour {
       }[]
     | null;
   shortDescription: string;
+  /**
+   * Subtitle for the tour
+   */
+  subtitle: string;
   fullDescription: {
     root: {
       type: string;
@@ -499,6 +555,10 @@ export interface Tour {
    * Duration in days
    */
   duration: number;
+  /**
+   * Number of riding days
+   */
+  ridingDays: number;
   /**
    * Price in USD
    */
@@ -1456,6 +1516,26 @@ export interface ToursSelect<T extends boolean = true> {
   title?: T;
   slug?: T;
   slugLock?: T;
+  startLocation?: T;
+  endLocation?: T;
+  startAirport?: T;
+  endAirport?: T;
+  totalDistance?:
+    | T
+    | {
+        min?: T;
+        max?: T;
+      };
+  dailyDistance?:
+    | T
+    | {
+        min?: T;
+        max?: T;
+      };
+  difficulty?: T;
+  travelTimeRating?: T;
+  sightseeing?: T;
+  minimumParticipants?: T;
   featuredImage?: T;
   gallery?:
     | T
@@ -1464,8 +1544,10 @@ export interface ToursSelect<T extends boolean = true> {
         id?: T;
       };
   shortDescription?: T;
+  subtitle?: T;
   fullDescription?: T;
   duration?: T;
+  ridingDays?: T;
   price?: T;
   included?:
     | T

@@ -71,6 +71,14 @@ export default async function TourPage({ params }: Props) {
 
   return (
     <div className="min-h-screen bg-gray-50">
+      {/* Title Section */}
+      <div className="bg-white">
+        <div className="container mx-auto px-4 py-8">
+          <h1 className="text-5xl font-black mb-4">{tour.title}</h1>
+          <div className="text-xl">from ${tour.price.toLocaleString()}</div>
+        </div>
+      </div>
+
       {/* Hero Section */}
       <div className="relative h-[60vh] min-h-[400px]">
         {tour.featuredImage &&
@@ -84,26 +92,125 @@ export default async function TourPage({ params }: Props) {
               priority
             />
           )}
-        <div className="absolute inset-0 bg-black/40" />
-        <div className="absolute inset-0 flex items-center">
-          <div className="container mx-auto px-4">
-            <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">{tour.title}</h1>
-            <div className="flex gap-4 text-white">
-              <span className="bg-primary-600 px-3 py-1 rounded-full text-sm">
-                {tour.duration} days
-              </span>
+      </div>
+
+      {/* Facts Section */}
+      <div className="bg-white">
+        <div className="container mx-auto px-4 py-12">
+          <h2 className="text-3xl font-bold mb-8">Facts</h2>
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-16 gap-y-8">
+            {/* Left Column */}
+            <div className="space-y-8">
+              {/* Start/End */}
+              <div>
+                <h3 className="text-blue-800 uppercase font-medium text-xs mb-2">Start / End</h3>
+                <p className="text-xl font-bold">
+                  {tour.startLocation} / {tour.endLocation}
+                </p>
+              </div>
+
+              {/* Next Airport */}
+              <div>
+                <h3 className="text-blue-800 uppercase font-medium text-xs mb-2">Next Airport</h3>
+                <p className="text-xl font-bold">
+                  {tour.startAirport} / {tour.endAirport}
+                </p>
+              </div>
+
+              {/* Tour Duration */}
+              <div>
+                <h3 className="text-blue-800 uppercase font-medium text-xs mb-2">Tour Duration</h3>
+                <p className="text-xl font-bold">
+                  {tour.duration} Days vacation, {tour.ridingDays} Riding days
+                </p>
+              </div>
+
+              {/* Distance */}
+              <div>
+                <h3 className="text-blue-800 uppercase font-medium text-xs mb-2">Distance</h3>
+                <p className="text-xl font-bold">
+                  Full distance: {tour.totalDistance.min.toLocaleString()}-
+                  {tour.totalDistance.max.toLocaleString()} km,{' '}
+                  {Math.round(tour.totalDistance.min * 0.621371)}-
+                  {Math.round(tour.totalDistance.max * 0.621371)} miles
+                </p>
+                <p className="text-xl font-bold">
+                  Daily distances: {tour.dailyDistance.min}-{tour.dailyDistance.max} km,{' '}
+                  {Math.round(tour.dailyDistance.min * 0.621371)}-
+                  {Math.round(tour.dailyDistance.max * 0.621371)} miles
+                </p>
+              </div>
+            </div>
+
+            {/* Right Column */}
+            <div className="space-y-8">
+              {/* Difficulty */}
+              <div>
+                <h3 className="text-blue-800 uppercase font-medium text-xs mb-2">Difficulty</h3>
+                <div className="flex">
+                  {[...Array(5)].map((_, i) => (
+                    <div
+                      key={i}
+                      className={`w-3 h-3 rounded-full ${
+                        i < tour.difficulty ? 'bg-blue-800' : 'border border-blue-800'
+                      } mr-1`}
+                    />
+                  ))}
+                </div>
+              </div>
+
+              {/* Travel Time/Day */}
+              <div>
+                <h3 className="text-blue-800 uppercase font-medium text-xs mb-2">
+                  Travel Time / Day
+                </h3>
+                <div className="flex">
+                  {[...Array(5)].map((_, i) => (
+                    <div
+                      key={i}
+                      className={`w-3 h-3 rounded-full ${
+                        i < tour.travelTimeRating ? 'bg-blue-800' : 'border border-blue-800'
+                      } mr-1`}
+                    />
+                  ))}
+                </div>
+              </div>
+
+              {/* Sightseeing */}
+              <div>
+                <h3 className="text-blue-800 uppercase font-medium text-xs mb-2">Sightseeing</h3>
+                <div className="flex">
+                  {[...Array(5)].map((_, i) => (
+                    <div
+                      key={i}
+                      className={`w-3 h-3 rounded-full ${
+                        i < tour.sightseeing ? 'bg-blue-800' : 'border border-blue-800'
+                      } mr-1`}
+                    />
+                  ))}
+                </div>
+              </div>
+
+              {/* Minimum Participants */}
+              <div>
+                <h3 className="text-blue-800 uppercase font-medium text-xs mb-2">
+                  Minimum Participants
+                </h3>
+                <p className="text-xl font-bold">{tour.minimumParticipants}</p>
+              </div>
             </div>
           </div>
         </div>
       </div>
 
       <div className="container mx-auto px-4 py-12">
+        <p className="text-xl font-bold mb-8">{tour.subtitle}</p>
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
           {/* Main Content */}
           <div className="lg:col-span-2">
             {/* Overview */}
             <section className="bg-white rounded-lg shadow-md p-6 mb-8">
-              <h2 className="text-2xl font-semibold mb-4">Overview</h2>
               <div className="prose max-w-none">
                 <RichText data={tour.fullDescription} />
               </div>
