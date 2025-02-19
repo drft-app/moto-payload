@@ -145,7 +145,7 @@ export interface Page {
       | null;
     media?: (string | null) | Media;
   };
-  layout: (CallToActionBlock | ContentBlock | MediaBlock | ArchiveBlock | FormBlock | FeaturedToursBlock)[];
+  layout: (CallToActionBlock | ContentBlock | MediaBlock | ArchiveBlock | FormBlock)[];
   meta?: {
     title?: string | null;
     /**
@@ -655,16 +655,6 @@ export interface Form {
     | null;
   updatedAt: string;
   createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "FeaturedToursBlock".
- */
-export interface FeaturedToursBlock {
-  heading: string;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'featuredTours';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1224,7 +1214,6 @@ export interface PagesSelect<T extends boolean = true> {
         mediaBlock?: T | MediaBlockSelect<T>;
         archive?: T | ArchiveBlockSelect<T>;
         formBlock?: T | FormBlockSelect<T>;
-        featuredTours?: T | FeaturedToursBlockSelect<T>;
       };
   meta?:
     | T
@@ -1321,15 +1310,6 @@ export interface FormBlockSelect<T extends boolean = true> {
   form?: T;
   enableIntro?: T;
   introContent?: T;
-  id?: T;
-  blockName?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "FeaturedToursBlock_select".
- */
-export interface FeaturedToursBlockSelect<T extends boolean = true> {
-  heading?: T;
   id?: T;
   blockName?: T;
 }
