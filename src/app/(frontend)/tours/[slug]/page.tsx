@@ -76,19 +76,6 @@ export default async function TourPage({ params }: Props) {
               <span className="bg-primary-600 px-3 py-1 rounded-full text-sm">
                 {tour.duration} days
               </span>
-              <span
-                className={`px-3 py-1 rounded-full text-sm ${
-                  tour.difficulty === 'easy'
-                    ? 'bg-green-500'
-                    : tour.difficulty === 'moderate'
-                      ? 'bg-yellow-500'
-                      : tour.difficulty === 'challenging'
-                        ? 'bg-orange-500'
-                        : 'bg-red-500'
-                }`}
-              >
-                {tour.difficulty.charAt(0).toUpperCase() + tour.difficulty.slice(1)}
-              </span>
             </div>
           </div>
         </div>

@@ -145,7 +145,7 @@ export interface Page {
       | null;
     media?: (string | null) | Media;
   };
-  layout: (CallToActionBlock | ContentBlock | MediaBlock | ArchiveBlock | FormBlock | FeaturedToursBlock)[];
+  layout: (CallToActionBlock | ContentBlock | MediaBlock | ArchiveBlock | FormBlock)[];
   meta?: {
     title?: string | null;
     /**
@@ -444,18 +444,117 @@ export interface ArchiveBlock {
     [k: string]: unknown;
   } | null;
   populateBy?: ('collection' | 'selection') | null;
-  relationTo?: 'posts' | null;
+  relationTo?: ('posts' | 'tours') | null;
   categories?: (string | Category)[] | null;
   limit?: number | null;
   selectedDocs?:
-    | {
-        relationTo: 'posts';
-        value: string | Post;
-      }[]
+    | (
+        | {
+            relationTo: 'posts';
+            value: string | Post;
+          }
+        | {
+            relationTo: 'tours';
+            value: string | Tour;
+          }
+      )[]
     | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'archive';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "tours".
+ */
+export interface Tour {
+  id: string;
+  title: string;
+  slug?: string | null;
+  slugLock?: boolean | null;
+  featuredImage: string | Media;
+  gallery?:
+    | {
+        image: string | Media;
+        id?: string | null;
+      }[]
+    | null;
+  shortDescription: string;
+  fullDescription: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  /**
+   * Duration in days
+   */
+  duration: number;
+  /**
+   * Price in USD
+   */
+  price: number;
+  included?:
+    | {
+        item: string;
+        id?: string | null;
+      }[]
+    | null;
+  itinerary?:
+    | {
+        day: number;
+        title: string;
+        description: {
+          root: {
+            type: string;
+            children: {
+              type: string;
+              version: number;
+              [k: string]: unknown;
+            }[];
+            direction: ('ltr' | 'rtl') | null;
+            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+            indent: number;
+            version: number;
+          };
+          [k: string]: unknown;
+        };
+        /**
+         * Distance in kilometers
+         */
+        distance?: number | null;
+        id?: string | null;
+      }[]
+    | null;
+  requirements?:
+    | {
+        requirement: string;
+        id?: string | null;
+      }[]
+    | null;
+  motorcycles?:
+    | {
+        model: string;
+        image?: (string | null) | Media;
+        description?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Show this tour on the homepage
+   */
+  featured?: boolean | null;
+  updatedAt: string;
+  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -653,110 +752,6 @@ export interface Form {
         id?: string | null;
       }[]
     | null;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "FeaturedToursBlock".
- */
-export interface FeaturedToursBlock {
-  heading: string;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'featuredTours';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "tours".
- */
-export interface Tour {
-  id: string;
-  title: string;
-  slug?: string | null;
-  slugLock?: boolean | null;
-  featuredImage: string | Media;
-  gallery?:
-    | {
-        image: string | Media;
-        id?: string | null;
-      }[]
-    | null;
-  shortDescription: string;
-  fullDescription: {
-    root: {
-      type: string;
-      children: {
-        type: string;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  };
-  /**
-   * Duration in days
-   */
-  duration: number;
-  /**
-   * Price in USD
-   */
-  price: number;
-  difficulty: 'easy' | 'moderate' | 'challenging' | 'expert';
-  included?:
-    | {
-        item: string;
-        id?: string | null;
-      }[]
-    | null;
-  itinerary?:
-    | {
-        day: number;
-        title: string;
-        description: {
-          root: {
-            type: string;
-            children: {
-              type: string;
-              version: number;
-              [k: string]: unknown;
-            }[];
-            direction: ('ltr' | 'rtl') | null;
-            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-            indent: number;
-            version: number;
-          };
-          [k: string]: unknown;
-        };
-        /**
-         * Distance in kilometers
-         */
-        distance?: number | null;
-        id?: string | null;
-      }[]
-    | null;
-  requirements?:
-    | {
-        requirement: string;
-        id?: string | null;
-      }[]
-    | null;
-  motorcycles?:
-    | {
-        model: string;
-        image?: (string | null) | Media;
-        description?: string | null;
-        id?: string | null;
-      }[]
-    | null;
-  /**
-   * Show this tour on the homepage
-   */
-  featured?: boolean | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -1224,7 +1219,6 @@ export interface PagesSelect<T extends boolean = true> {
         mediaBlock?: T | MediaBlockSelect<T>;
         archive?: T | ArchiveBlockSelect<T>;
         formBlock?: T | FormBlockSelect<T>;
-        featuredTours?: T | FeaturedToursBlockSelect<T>;
       };
   meta?:
     | T
@@ -1321,15 +1315,6 @@ export interface FormBlockSelect<T extends boolean = true> {
   form?: T;
   enableIntro?: T;
   introContent?: T;
-  id?: T;
-  blockName?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "FeaturedToursBlock_select".
- */
-export interface FeaturedToursBlockSelect<T extends boolean = true> {
-  heading?: T;
   id?: T;
   blockName?: T;
 }
@@ -1482,7 +1467,6 @@ export interface ToursSelect<T extends boolean = true> {
   fullDescription?: T;
   duration?: T;
   price?: T;
-  difficulty?: T;
   included?:
     | T
     | {

@@ -39,7 +39,6 @@ export const tours: TourSeed[] = [
     slug: 'silk-road-adventure',
     _status: 'published',
     featured: true,
-    difficulty: 'challenging',
     duration: 15,
     price: 4999,
     shortDescription:
@@ -83,7 +82,6 @@ export const tours: TourSeed[] = [
     slug: 'tibet-expedition',
     _status: 'published',
     featured: true,
-    difficulty: 'expert',
     duration: 12,
     price: 5999,
     shortDescription:
@@ -127,7 +125,6 @@ export const tours: TourSeed[] = [
     slug: 'great-wall-ride',
     _status: 'published',
     featured: true,
-    difficulty: 'moderate',
     duration: 7,
     price: 2999,
     shortDescription:

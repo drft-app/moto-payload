@@ -1,6 +1,6 @@
 import React from 'react'
 import { Metadata } from 'next'
-import TourCard from '../_components/tours/TourCard'
+import { Card } from '@/components/Card'
 import configPromise from '@payload-config'
 import { getPayload } from 'payload'
 
@@ -13,7 +13,6 @@ export const metadata: Metadata = {
 }
 
 export type TourFilters = {
-  difficulty?: string
   region?: string
   minPrice?: number
   maxPrice?: number
@@ -34,10 +33,10 @@ export default async function ToursPage() {
 
       <div className="flex flex-col lg:flex-row gap-4 sm:gap-8">
         {/* Tour listings */}
-        <div className="lg:w-3/4">
+        <div className="lg:w-full">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
             {tours.map((tour) => (
-              <TourCard key={tour.id} tour={tour} />
+              <Card key={tour.id} doc={tour} relationTo="tours" />
             ))}
           </div>
         </div>
