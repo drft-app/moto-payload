@@ -1,13 +1,24 @@
 import React from 'react'
-import { fetchFeaturedTours } from '@/app/(frontend)/_api/fetchTours'
 import TourCard from '@/app/(frontend)/_components/tours/TourCard'
+import configPromise from '@payload-config'
+import { getPayload } from 'payload'
 
 interface Props {
   heading: string
 }
 
 export const FeaturedToursBlock: React.FC<Props> = async ({ heading }) => {
-  const tours = await fetchFeaturedTours()
+  const payload = await getPayload({ config: configPromise })
+
+  const { docs: tours } = await payload.find({
+    collection: 'tours',
+    where: {
+      featured: {
+        equals: true,
+      },
+    },
+    depth: 1,
+  })
 
   if (!tours.length) {
     return null

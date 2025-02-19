@@ -7,6 +7,8 @@ import TourDatesSection from '@/app/(frontend)/_components/tours/TourDatesSectio
 import TourReviews from '@/app/(frontend)/_components/tours/TourReviews'
 import RichText from '@/components/RichText'
 
+export const revalidate = 600
+
 interface Props {
   params: Promise<{ slug: string }>
 }

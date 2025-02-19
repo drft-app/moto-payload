@@ -1,7 +1,10 @@
 import React from 'react'
 import { Metadata } from 'next'
-import { fetchTours } from '../_api/fetchTours'
 import TourCard from '../_components/tours/TourCard'
+import configPromise from '@payload-config'
+import { getPayload } from 'payload'
+
+export const revalidate = 600
 
 export const metadata: Metadata = {
   title: 'Motorcycle Tours in China | Adventure Awaits',
@@ -9,8 +12,21 @@ export const metadata: Metadata = {
     'Discover breathtaking motorcycle tours across China. From the Great Wall to the Tibetan Plateau, find your perfect adventure.',
 }
 
+export type TourFilters = {
+  difficulty?: string
+  region?: string
+  minPrice?: number
+  maxPrice?: number
+  duration?: number
+}
+
 export default async function ToursPage() {
-  const tours = await fetchTours()
+  const payload = await getPayload({ config: configPromise })
+
+  const { docs: tours } = await payload.find({
+    collection: 'tours',
+    depth: 1,
+  })
 
   return (
     <div className="container mx-auto px-4 sm:px-6 py-4 sm:py-8">
