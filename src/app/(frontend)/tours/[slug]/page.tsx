@@ -233,7 +233,9 @@ export default async function TourPage({ params }: Props) {
                       <RichText data={day.description} />
                     </div>
                     {day.distance && (
-                      <p className="text-sm text-gray-600 mt-2">Distance: {day.distance} km</p>
+                      <p className="text-sm text-gray-600 mt-2">
+                        Riding Distance: {day.distance} km
+                      </p>
                     )}
                   </div>
                 ))}
