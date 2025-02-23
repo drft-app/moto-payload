@@ -11,7 +11,7 @@ import { searchPlugin } from '@payloadcms/plugin-search'
 import { seoPlugin } from '@payloadcms/plugin-seo'
 import { GenerateTitle, GenerateURL } from '@payloadcms/plugin-seo/types'
 import { FixedToolbarFeature, HeadingFeature, lexicalEditor } from '@payloadcms/richtext-lexical'
-import { s3Storage } from '@payloadcms/storage-s3'
+import { uploadthingStorage } from '@payloadcms/storage-uploadthing'
 import { Plugin } from 'payload'
 
 const generateTitle: GenerateTitle<Post | Page> = ({ doc }) => {
@@ -91,27 +91,12 @@ export const plugins: Plugin[] = [
     },
   }),
   payloadCloudPlugin(),
-  s3Storage({
+  uploadthingStorage({
     collections: {
       media: true,
     },
-    bucket: 'tanze-public',
-    config: {
-      credentials: {
-        accessKeyId: process.env.S3_ACCESS_KEY_ID || '',
-        secretAccessKey: process.env.S3_SECRET_ACCESS_KEY || '',
-      },
-      region: 'us-west-2',
-      // ... Other S3 configuration
+    options: {
+      token: process.env.UPLOADTHING_TOKEN,
     },
   }),
-  // vercelBlobStorage({
-  //   enabled: true, // Optional, defaults to true
-  //   // Specify which collections should use Vercel Blob
-  //   collections: {
-  //     media: true,
-  //   },
-  //   // Token provided by Vercel once Blob storage is added to your Vercel project
-  //   token: process.env.BLOB_READ_WRITE_TOKEN,
-  // }),
 ]
