@@ -206,164 +206,148 @@ export default async function TourPage({ params }: Props) {
 
       <div className="container mx-auto px-4 py-12">
         <p className="text-xl font-bold mb-8">{tour.subtitle}</p>
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
+        <div>
           {/* Main Content */}
-          <div className="lg:col-span-2">
-            {/* Overview */}
-            <section className="bg-white rounded-lg shadow-md p-6 mb-8">
-              <div className="prose max-w-none">
-                <RichText data={tour.fullDescription} />
-              </div>
-            </section>
+          {/* Overview */}
+          <section className="bg-white rounded-lg shadow-md p-6 mb-8">
+            <RichText data={tour.fullDescription} className="max-w-none" />
+          </section>
 
-            {/* Itinerary */}
-            <section className="bg-white rounded-lg shadow-md p-6 mb-8">
-              <h2 className="text-2xl font-semibold mb-6">Tour Itinerary</h2>
-              <div className="space-y-8">
-                {tour.itinerary?.map((day) => (
-                  <div
-                    key={day.day}
-                    className="relative pl-8 pb-8 border-l-2 border-primary-200 last:pb-0"
-                  >
-                    <div className="absolute left-[-9px] top-0 w-4 h-4 rounded-full bg-primary-600" />
-                    <h3 className="text-lg font-semibold mb-2">
-                      Day {day.day}: {day.title}
-                    </h3>
-                    <div className="prose max-w-none">
-                      <RichText data={day.description} />
-                    </div>
-                    {day.distance && (
-                      <p className="text-sm text-gray-600 mt-2">
-                        Riding Distance: {day.distance} km
-                      </p>
-                    )}
+          {/* Itinerary */}
+          <section className="bg-white rounded-lg shadow-md p-6 mb-8">
+            <h2 className="text-2xl font-semibold mb-6">Tour Itinerary</h2>
+            <div className="space-y-8">
+              {tour.itinerary?.map((day) => (
+                <div
+                  key={day.day}
+                  className="relative pl-8 pb-8 border-l-2 border-primary-200 last:pb-0"
+                >
+                  <div className="absolute left-[-9px] top-0 w-4 h-4 rounded-full bg-primary-600" />
+                  <h3 className="text-lg font-semibold mb-2">
+                    Day {day.day}: {day.title}
+                  </h3>
+                  <div className="prose max-w-none">
+                    <RichText data={day.description} />
                   </div>
-                ))}
-              </div>
-            </section>
-
+                  {day.distance && (
+                    <p className="text-sm text-gray-600 mt-2">Riding Distance: {day.distance} km</p>
+                  )}
+                </div>
+              ))}
+            </div>
             {/* Tour Book Download */}
             {tour.tourBookLink && (
-              <a
-                href={tour.tourBookLink}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center text-2xl font-bold text-blue-800 hover:text-blue-900 mb-8"
-              >
-                Download mini tour book
-                <svg
-                  className="w-6 h-6 ml-2"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                  xmlns="http://www.w3.org/2000/svg"
+              <div className="mt-12">
+                <a
+                  href={tour.tourBookLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center text-2xl font-bold text-blue-800 hover:text-blue-900 mb-8"
                 >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M9 5l7 7-7 7"
-                  />
-                </svg>
-              </a>
+                  Download mini tour book
+                  <svg
+                    className="w-6 h-6 ml-2"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M9 5l7 7-7 7"
+                    />
+                  </svg>
+                </a>
+              </div>
             )}
+          </section>
 
-            {/* Motorcycles */}
-            <section className="bg-white rounded-lg shadow-md p-6 mb-8">
-              <h2 className="text-2xl font-semibold mb-6">Available Motorcycles</h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {tour.motorcycles?.map((motorcycle) => (
-                  <div key={motorcycle.model} className="flex gap-4">
-                    {motorcycle.image &&
-                      typeof motorcycle.image === 'object' &&
-                      'url' in motorcycle.image && (
-                        <div className="relative w-24 h-24">
-                          <Image
-                            src={motorcycle.image.url || ''}
-                            alt={motorcycle.model}
-                            fill
-                            className="object-cover rounded-lg"
-                          />
-                        </div>
-                      )}
-                    <div>
-                      <h3 className="font-semibold mb-1">{motorcycle.model}</h3>
-                      <p className="text-sm text-gray-600">{motorcycle.description}</p>
-                    </div>
-                  </div>
+          {/* Tour Details */}
+          <section className="bg-white rounded-lg shadow-md p-6 mb-8">
+            {/* Included Services */}
+            <div className="mb-6">
+              <h3 className="text-2xl font-semibold mb-3">Included Services</h3>
+              <ul className="space-y-2">
+                {tour.included?.map((item) => (
+                  <li key={item.item} className="flex items-center text-gray-600">
+                    <svg
+                      className="w-5 h-5 text-green-500 mr-2"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M5 13l4 4L19 7"
+                      />
+                    </svg>
+                    {item.item}
+                  </li>
                 ))}
-              </div>
-            </section>
-
-            {/* Reviews */}
-            <TourReviews tourId={tour.id} />
-          </div>
-
-          {/* Sidebar */}
-          <div className="lg:col-span-1">
-            {/* Tour Info Card */}
-            <div className="bg-white rounded-lg shadow-md p-6 mb-8 sticky top-8">
-              <div className="text-center mb-6">
-                <div className="text-3xl font-bold text-primary-600">
-                  ${tour.price.toLocaleString()}
-                </div>
-                <div className="text-gray-600">per person</div>
-              </div>
-
-              {/* Included Items */}
-              <div className="mb-6">
-                <h3 className="font-semibold mb-3">Included Services</h3>
-                <ul className="space-y-2">
-                  {tour.included?.map((item) => (
-                    <li key={item.item} className="flex items-center text-gray-600">
-                      <svg
-                        className="w-5 h-5 text-green-500 mr-2"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M5 13l4 4L19 7"
-                        />
-                      </svg>
-                      {item.item}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              {/* Requirements */}
-              <div className="mb-6">
-                <h3 className="font-semibold mb-3">Additional Costs</h3>
-                <ul className="space-y-2">
-                  {tour.additionalCosts?.map((cost) => (
-                    <li key={cost.item} className="flex items-start text-gray-600">
-                      <svg
-                        className="w-5 h-5 text-primary-600 mr-2 mt-0.5"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                        />
-                      </svg>
-                      {cost.item}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              {/* Available Dates */}
-              <TourDatesSection tourId={tour.id} />
+              </ul>
             </div>
-          </div>
+
+            {/* Additional Costs */}
+            <div className="mb-6">
+              <h3 className="text-2xl font-semibold mb-3">Additional Costs</h3>
+              <ul className="space-y-2">
+                {tour.additionalCosts?.map((cost) => (
+                  <li key={cost.item} className="flex items-start text-gray-600">
+                    <svg
+                      className="w-5 h-5 text-primary-600 mr-2 mt-0.5"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                      />
+                    </svg>
+                    {cost.item}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </section>
+
+          {/* Motorcycles */}
+          <section className="bg-white rounded-lg shadow-md p-6 mb-8">
+            <h2 className="text-2xl font-semibold mb-6">Available Motorcycles</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {tour.motorcycles?.map((motorcycle) => (
+                <div key={motorcycle.model} className="flex gap-4">
+                  {motorcycle.image &&
+                    typeof motorcycle.image === 'object' &&
+                    'url' in motorcycle.image && (
+                      <div className="relative w-24 h-24">
+                        <Image
+                          src={motorcycle.image.url || ''}
+                          alt={motorcycle.model}
+                          fill
+                          className="object-cover rounded-lg"
+                        />
+                      </div>
+                    )}
+                  <div>
+                    <h3 className="font-semibold mb-1">{motorcycle.model}</h3>
+                    <p className="text-sm text-gray-600">{motorcycle.description}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </section>
+
+          {/* Available Dates */}
+          <section className="bg-white rounded-lg shadow-md p-6 mb-8">
+            <TourDatesSection tourId={tour.id} />
+          </section>
         </div>
       </div>
     </div>
