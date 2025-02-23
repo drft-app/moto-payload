@@ -317,6 +317,31 @@ export default async function TourPage({ params }: Props) {
             </div>
           </section>
 
+          {/* Gallery */}
+          {tour.gallery && tour.gallery.length > 0 && (
+            <section className="bg-white rounded-lg shadow-md p-6 mb-8">
+              <h2 className="text-2xl font-semibold mb-6">Gallery</h2>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                {tour.gallery.map(
+                  (item, index) =>
+                    item.image &&
+                    typeof item.image === 'object' &&
+                    'url' in item.image &&
+                    item.image.url && (
+                      <div key={item.id || index} className="relative aspect-[4/3]">
+                        <Image
+                          src={item.image.url}
+                          alt={`Tour gallery image ${index + 1}`}
+                          fill
+                          className="object-cover rounded-lg hover:opacity-90 transition-opacity"
+                        />
+                      </div>
+                    ),
+                )}
+              </div>
+            </section>
+          )}
+
           {/* Motorcycles */}
           <section className="bg-white rounded-lg shadow-md p-6 mb-8">
             <h2 className="text-2xl font-semibold mb-6">Available Motorcycles</h2>
