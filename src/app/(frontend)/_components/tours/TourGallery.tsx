@@ -3,7 +3,7 @@
 import React, { useState } from 'react'
 import Image from 'next/image'
 import { Media, Tour } from '@/payload-types'
-import { Dialog, DialogContent } from '@/components/ui/dialog'
+import { Dialog, DialogContent, DialogTitle } from '@/components/ui/dialog'
 
 interface TourGalleryProps {
   gallery: NonNullable<Tour['gallery']>
@@ -32,6 +32,8 @@ export default function TourGallery({ gallery }: TourGalleryProps) {
                 src={imageUrl}
                 alt={`Tour gallery image ${index + 1}`}
                 fill
+                sizes="300px"
+                priority
                 className="object-cover rounded-lg transition-transform duration-300 group-hover:scale-[1.02]"
               />
               <div className="absolute inset-0 bg-black opacity-0 group-hover:opacity-10 transition-opacity rounded-lg" />
@@ -44,6 +46,7 @@ export default function TourGallery({ gallery }: TourGalleryProps) {
         open={selectedImage !== null}
         onOpenChange={(open) => !open && setSelectedImage(null)}
       >
+        <DialogTitle></DialogTitle>
         <DialogContent className="max-w-7xl border-none bg-transparent p-0 overflow-hidden">
           {selectedImage && (
             <div className="relative w-full aspect-[16/9]">
@@ -53,6 +56,7 @@ export default function TourGallery({ gallery }: TourGalleryProps) {
                 fill
                 className="object-contain"
                 priority
+                sizes="300px"
               />
             </div>
           )}
