@@ -104,38 +104,38 @@ export default async function TourPage({ params }: Props) {
             <div className="space-y-8">
               {/* Start/End */}
               <div>
-                <h3 className="text-blue-800 uppercase font-medium text-xs mb-2">Start / End</h3>
-                <p className="text-xl font-bold">
+                <h3 className="text-blue-800 uppercase font-medium text-sm mb-2">Start / End</h3>
+                <p className="text-lg font-bold">
                   {tour.startLocation} / {tour.endLocation}
                 </p>
               </div>
 
               {/* Next Airport */}
               <div>
-                <h3 className="text-blue-800 uppercase font-medium text-xs mb-2">Next Airport</h3>
-                <p className="text-xl font-bold">
+                <h3 className="text-blue-800 uppercase font-medium text-sm mb-2">Next Airport</h3>
+                <p className="text-lg font-bold">
                   {tour.startAirport} / {tour.endAirport}
                 </p>
               </div>
 
               {/* Tour Duration */}
               <div>
-                <h3 className="text-blue-800 uppercase font-medium text-xs mb-2">Tour Duration</h3>
-                <p className="text-xl font-bold">
+                <h3 className="text-blue-800 uppercase font-medium text-sm mb-2">Tour Duration</h3>
+                <p className="text-lg font-bold">
                   {tour.duration} Days vacation, {tour.ridingDays} Riding days
                 </p>
               </div>
 
               {/* Distance */}
               <div>
-                <h3 className="text-blue-800 uppercase font-medium text-xs mb-2">Distance</h3>
-                <p className="text-xl font-bold">
+                <h3 className="text-blue-800 uppercase font-medium text-sm mb-2">Distance</h3>
+                <p className="text-lg font-bold">
                   Full distance: {tour.totalDistance.min.toLocaleString()}-
                   {tour.totalDistance.max.toLocaleString()} km,{' '}
                   {Math.round(tour.totalDistance.min * 0.621371)}-
                   {Math.round(tour.totalDistance.max * 0.621371)} miles
                 </p>
-                <p className="text-xl font-bold">
+                <p className="text-lg font-bold">
                   Daily distances: {tour.dailyDistance.min}-{tour.dailyDistance.max} km,{' '}
                   {Math.round(tour.dailyDistance.min * 0.621371)}-
                   {Math.round(tour.dailyDistance.max * 0.621371)} miles
@@ -147,7 +147,7 @@ export default async function TourPage({ params }: Props) {
             <div className="space-y-8">
               {/* Difficulty */}
               <div>
-                <h3 className="text-blue-800 uppercase font-medium text-xs mb-2">Difficulty</h3>
+                <h3 className="text-blue-800 uppercase font-medium text-sm mb-2">Difficulty</h3>
                 <div className="flex">
                   {[...Array(5)].map((_, i) => (
                     <div
@@ -162,7 +162,7 @@ export default async function TourPage({ params }: Props) {
 
               {/* Travel Time/Day */}
               <div>
-                <h3 className="text-blue-800 uppercase font-medium text-xs mb-2">
+                <h3 className="text-blue-800 uppercase font-medium text-sm mb-2">
                   Travel Time / Day
                 </h3>
                 <div className="flex">
@@ -179,7 +179,7 @@ export default async function TourPage({ params }: Props) {
 
               {/* Sightseeing */}
               <div>
-                <h3 className="text-blue-800 uppercase font-medium text-xs mb-2">Sightseeing</h3>
+                <h3 className="text-blue-800 uppercase font-medium text-sm mb-2">Sightseeing</h3>
                 <div className="flex">
                   {[...Array(5)].map((_, i) => (
                     <div
@@ -194,10 +194,10 @@ export default async function TourPage({ params }: Props) {
 
               {/* Minimum Participants */}
               <div>
-                <h3 className="text-blue-800 uppercase font-medium text-xs mb-2">
+                <h3 className="text-blue-800 uppercase font-medium text-sm mb-2">
                   Minimum Participants
                 </h3>
-                <p className="text-xl font-bold">{tour.minimumParticipants}</p>
+                <p className="text-lg font-bold">{tour.minimumParticipants}</p>
               </div>
             </div>
           </div>
