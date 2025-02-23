@@ -1,18 +1,18 @@
-import React from 'react'
-import Image from 'next/image'
-import { notFound } from 'next/navigation'
-import { getPayloadClient } from '@/getPayload'
-import { Tour } from '@/payload-types'
-import TourDatesSection from '@/app/(frontend)/_components/tours/TourDatesSection'
-import RichText from '@/components/RichText'
-import TourGallery from '@/app/(frontend)/_components/tours/TourGallery'
+import React from "react"
+import Image from "next/image"
+import { notFound } from "next/navigation"
+import { getPayloadClient } from "@/getPayload"
+import { Tour } from "@/payload-types"
+import TourDatesSection from "@/app/(frontend)/_components/tours/TourDatesSection"
+import RichText from "@/components/RichText"
+import TourGallery from "@/app/(frontend)/_components/tours/TourGallery"
 
 export const revalidate = 600
 
 export async function generateStaticParams() {
   const payload = await getPayloadClient()
   const tours = await payload.find({
-    collection: 'tours',
+    collection: "tours",
     limit: 1000,
     depth: 0,
     select: {
@@ -33,7 +33,7 @@ async function getTour(slug: string): Promise<Tour | null> {
   const payload = await getPayloadClient()
 
   const { docs } = await payload.find({
-    collection: 'tours',
+    collection: "tours",
     where: {
       slug: {
         equals: slug,
@@ -51,7 +51,7 @@ export async function generateMetadata({ params }: Props) {
 
   if (!tour) {
     return {
-      title: 'Tour Not Found',
+      title: "Tour Not Found",
     }
   }
 
@@ -82,10 +82,10 @@ export default async function TourPage({ params }: Props) {
       {/* Hero Section */}
       <div className="relative h-[60vh] min-h-[400px]">
         {tour.featuredImage &&
-          typeof tour.featuredImage === 'object' &&
-          'url' in tour.featuredImage && (
+          typeof tour.featuredImage === "object" &&
+          "url" in tour.featuredImage && (
             <Image
-              src={tour.featuredImage.url || ''}
+              src={tour.featuredImage.url || ""}
               alt={tour.title}
               fill
               className="object-cover"
@@ -131,12 +131,12 @@ export default async function TourPage({ params }: Props) {
                 <h3 className="text-blue-800 uppercase font-medium text-sm mb-2">Distance</h3>
                 <p className="text-lg font-bold">
                   Full distance: {tour.totalDistance.min.toLocaleString()}-
-                  {tour.totalDistance.max.toLocaleString()} km,{' '}
+                  {tour.totalDistance.max.toLocaleString()} km,{" "}
                   {Math.round(tour.totalDistance.min * 0.621371)}-
                   {Math.round(tour.totalDistance.max * 0.621371)} miles
                 </p>
                 <p className="text-lg font-bold">
-                  Daily distances: {tour.dailyDistance.min}-{tour.dailyDistance.max} km,{' '}
+                  Daily distances: {tour.dailyDistance.min}-{tour.dailyDistance.max} km,{" "}
                   {Math.round(tour.dailyDistance.min * 0.621371)}-
                   {Math.round(tour.dailyDistance.max * 0.621371)} miles
                 </p>
@@ -153,7 +153,7 @@ export default async function TourPage({ params }: Props) {
                     <div
                       key={i}
                       className={`w-3 h-3 rounded-full ${
-                        i < tour.difficulty ? 'bg-blue-800' : 'border border-blue-800'
+                        i < tour.difficulty ? "bg-blue-800" : "border border-blue-800"
                       } mr-1`}
                     />
                   ))}
@@ -170,7 +170,7 @@ export default async function TourPage({ params }: Props) {
                     <div
                       key={i}
                       className={`w-3 h-3 rounded-full ${
-                        i < tour.travelTimeRating ? 'bg-blue-800' : 'border border-blue-800'
+                        i < tour.travelTimeRating ? "bg-blue-800" : "border border-blue-800"
                       } mr-1`}
                     />
                   ))}
@@ -185,7 +185,7 @@ export default async function TourPage({ params }: Props) {
                     <div
                       key={i}
                       className={`w-3 h-3 rounded-full ${
-                        i < tour.sightseeing ? 'bg-blue-800' : 'border border-blue-800'
+                        i < tour.sightseeing ? "bg-blue-800" : "border border-blue-800"
                       } mr-1`}
                     />
                   ))}
@@ -317,10 +317,10 @@ export default async function TourPage({ params }: Props) {
             </div>
           </section>
 
-          {/* Gallery */}
+          {/* Media */}
           {tour.gallery && tour.gallery.length > 0 && (
             <section className="bg-white rounded-lg shadow-md p-6 mb-8">
-              <h2 className="text-2xl font-semibold mb-6">Gallery</h2>
+              <h2 className="text-2xl font-semibold mb-6">Media</h2>
               <TourGallery gallery={tour.gallery} />
             </section>
           )}
@@ -332,11 +332,11 @@ export default async function TourPage({ params }: Props) {
               {tour.motorcycles?.map((motorcycle) => (
                 <div key={motorcycle.model} className="flex gap-4">
                   {motorcycle.image &&
-                    typeof motorcycle.image === 'object' &&
-                    'url' in motorcycle.image && (
+                    typeof motorcycle.image === "object" &&
+                    "url" in motorcycle.image && (
                       <div className="relative w-24 h-24">
                         <Image
-                          src={motorcycle.image.url || ''}
+                          src={motorcycle.image.url || ""}
                           alt={motorcycle.model}
                           fill
                           className="object-cover rounded-lg"

@@ -1,12 +1,12 @@
-'use client'
+"use client"
 
-import React, { useState } from 'react'
-import Image from 'next/image'
-import { Media, Tour } from '@/payload-types'
-import { Dialog, DialogContent, DialogTitle } from '@/components/ui/dialog'
+import React, { useState } from "react"
+import Image from "next/image"
+import { Media, Tour } from "@/payload-types"
+import { Dialog, DialogContent, DialogTitle, DialogDescription } from "@/components/ui/dialog"
 
 interface TourGalleryProps {
-  gallery: NonNullable<Tour['gallery']>
+  gallery: NonNullable<Tour["gallery"]>
 }
 
 export default function TourGallery({ gallery }: TourGalleryProps) {
@@ -18,8 +18,8 @@ export default function TourGallery({ gallery }: TourGalleryProps) {
         {gallery.map((item, index) => {
           const imageUrl =
             item.image &&
-            typeof item.image === 'object' &&
-            'url' in item.image &&
+            typeof item.image === "object" &&
+            "url" in item.image &&
             (item.image as Media).url
 
           return imageUrl ? (
@@ -46,8 +46,9 @@ export default function TourGallery({ gallery }: TourGalleryProps) {
         open={selectedImage !== null}
         onOpenChange={(open) => !open && setSelectedImage(null)}
       >
-        <DialogTitle></DialogTitle>
         <DialogContent className="max-w-7xl border-none bg-transparent p-0 overflow-hidden">
+          <DialogTitle className="sr-only">Tour Gallery</DialogTitle>
+          <DialogDescription className="sr-only">Tour Gallery</DialogDescription>
           {selectedImage && (
             <div className="relative w-full aspect-[16/9]">
               <Image
