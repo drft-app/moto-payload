@@ -210,9 +210,7 @@ export default async function TourPage({ params }: Props) {
           {/* Main Content */}
           {/* Overview */}
           <section className="bg-white rounded-lg shadow-md p-6 mb-8">
-            <div className="prose max-w-none">
-              <RichText data={tour.fullDescription} />
-            </div>
+            <RichText data={tour.fullDescription} className="max-w-none" />
           </section>
 
           {/* Itinerary */}
