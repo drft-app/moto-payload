@@ -248,11 +248,11 @@ export const Tours: CollectionConfig = {
       ],
     },
     {
-      name: 'requirements',
+      name: 'additionalCosts',
       type: 'array',
       fields: [
         {
-          name: 'requirement',
+          name: 'item',
           type: 'text',
           required: true,
         },

@@ -312,7 +312,7 @@ export default async function TourPage({ params }: Props) {
 
               {/* Included Items */}
               <div className="mb-6">
-                <h3 className="font-semibold mb-3">What&apos;s Included</h3>
+                <h3 className="font-semibold mb-3">Included Services</h3>
                 <ul className="space-y-2">
                   {tour.included?.map((item) => (
                     <li key={item.item} className="flex items-center text-gray-600">
@@ -337,10 +337,10 @@ export default async function TourPage({ params }: Props) {
 
               {/* Requirements */}
               <div className="mb-6">
-                <h3 className="font-semibold mb-3">Requirements</h3>
+                <h3 className="font-semibold mb-3">Additional Costs</h3>
                 <ul className="space-y-2">
-                  {tour.requirements?.map((req) => (
-                    <li key={req.requirement} className="flex items-start text-gray-600">
+                  {tour.additionalCosts?.map((cost) => (
+                    <li key={cost.item} className="flex items-start text-gray-600">
                       <svg
                         className="w-5 h-5 text-primary-600 mr-2 mt-0.5"
                         fill="none"
@@ -354,7 +354,7 @@ export default async function TourPage({ params }: Props) {
                           d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
                         />
                       </svg>
-                      {req.requirement}
+                      {cost.item}
                     </li>
                   ))}
                 </ul>

@@ -595,9 +595,9 @@ export interface Tour {
         id?: string | null;
       }[]
     | null;
-  requirements?:
+  additionalCosts?:
     | {
-        requirement: string;
+        item: string;
         id?: string | null;
       }[]
     | null;
@@ -1568,10 +1568,10 @@ export interface ToursSelect<T extends boolean = true> {
         distance?: T;
         id?: T;
       };
-  requirements?:
+  additionalCosts?:
     | T
     | {
-        requirement?: T;
+        item?: T;
         id?: T;
       };
   tourBookLink?: T;
