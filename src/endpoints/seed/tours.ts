@@ -89,10 +89,5 @@ export const tours: TourSeed[] = [
       { item: 'Luxury hotel accommodation' },
       { item: 'All breakfasts and dinners' },
     ],
-    requirements: [
-      { requirement: 'Valid motorcycle license with at least 3 years experience' },
-      { requirement: 'Experience with large adventure motorcycles' },
-      { requirement: 'Good physical fitness' },
-    ],
   },
 ]
