@@ -601,6 +601,10 @@ export interface Tour {
         id?: string | null;
       }[]
     | null;
+  /**
+   * Link to download the tour book PDF
+   */
+  tourBookLink?: string | null;
   motorcycles?:
     | {
         model: string;
@@ -1570,6 +1574,7 @@ export interface ToursSelect<T extends boolean = true> {
         requirement?: T;
         id?: T;
       };
+  tourBookLink?: T;
   motorcycles?:
     | T
     | {

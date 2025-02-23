@@ -259,6 +259,13 @@ export const Tours: CollectionConfig = {
       ],
     },
     {
+      name: 'tourBookLink',
+      type: 'text',
+      admin: {
+        description: 'Link to download the tour book PDF',
+      },
+    },
+    {
       name: 'motorcycles',
       type: 'array',
       fields: [
