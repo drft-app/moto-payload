@@ -233,12 +233,40 @@ export default async function TourPage({ params }: Props) {
                       <RichText data={day.description} />
                     </div>
                     {day.distance && (
-                      <p className="text-sm text-gray-600 mt-2">Distance: {day.distance} km</p>
+                      <p className="text-sm text-gray-600 mt-2">
+                        Riding Distance: {day.distance} km
+                      </p>
                     )}
                   </div>
                 ))}
               </div>
             </section>
+
+            {/* Tour Book Download */}
+            {tour.tourBookLink && (
+              <a
+                href={tour.tourBookLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center text-2xl font-bold text-blue-800 hover:text-blue-900 mb-8"
+              >
+                Download mini tour book
+                <svg
+                  className="w-6 h-6 ml-2"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M9 5l7 7-7 7"
+                  />
+                </svg>
+              </a>
+            )}
 
             {/* Motorcycles */}
             <section className="bg-white rounded-lg shadow-md p-6 mb-8">
