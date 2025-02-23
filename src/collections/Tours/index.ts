@@ -1,12 +1,12 @@
-import { defaultLexical } from '@/fields/defaultLexical'
-import { slugField } from '@/fields/slug'
-import type { CollectionConfig } from 'payload'
-import { anyone } from '../../access/anyone'
-import { authenticated } from '../../access/authenticated'
-import { revalidateDelete, revalidateTour } from './hooks/revalidateTour'
+import { defaultLexical } from "@/fields/defaultLexical"
+import { slugField } from "@/fields/slug"
+import type { CollectionConfig } from "payload"
+import { anyone } from "../../access/anyone"
+import { authenticated } from "../../access/authenticated"
+import { revalidateDelete, revalidateTour } from "./hooks/revalidateTour"
 
 export const Tours: CollectionConfig = {
-  slug: 'tours',
+  slug: "tours",
   access: {
     create: authenticated,
     delete: authenticated,
@@ -14,8 +14,8 @@ export const Tours: CollectionConfig = {
     update: authenticated,
   },
   admin: {
-    useAsTitle: 'title',
-    defaultColumns: ['title', 'duration', 'price'],
+    useAsTitle: "title",
+    defaultColumns: ["title", "duration", "price"],
   },
   hooks: {
     afterChange: [revalidateTour],
@@ -23,274 +23,274 @@ export const Tours: CollectionConfig = {
   },
   fields: [
     {
-      name: 'title',
-      type: 'text',
+      name: "title",
+      type: "text",
       required: true,
     },
     ...slugField(),
     {
-      name: 'startLocation',
-      type: 'text',
+      name: "startLocation",
+      type: "text",
       required: true,
       admin: {
-        description: 'Starting city/location of the tour',
+        description: "Starting city/location of the tour",
       },
     },
     {
-      name: 'endLocation',
-      type: 'text',
+      name: "endLocation",
+      type: "text",
       required: true,
       admin: {
-        description: 'Ending city/location of the tour',
+        description: "Ending city/location of the tour",
       },
     },
     {
-      name: 'startAirport',
-      type: 'text',
+      name: "startAirport",
+      type: "text",
       required: true,
       admin: {
-        description: 'Nearest airport to start location (with code)',
+        description: "Nearest airport to start location (with code)",
       },
     },
     {
-      name: 'endAirport',
-      type: 'text',
+      name: "endAirport",
+      type: "text",
       required: true,
       admin: {
-        description: 'Nearest airport to end location (with code)',
+        description: "Nearest airport to end location (with code)",
       },
     },
     {
-      name: 'totalDistance',
-      type: 'group',
+      name: "totalDistance",
+      type: "group",
       fields: [
         {
-          name: 'min',
-          type: 'number',
+          name: "min",
+          type: "number",
           required: true,
           admin: {
-            description: 'Minimum total distance in kilometers',
+            description: "Minimum total distance in kilometers",
           },
         },
         {
-          name: 'max',
-          type: 'number',
+          name: "max",
+          type: "number",
           required: true,
           admin: {
-            description: 'Maximum total distance in kilometers',
+            description: "Maximum total distance in kilometers",
           },
         },
       ],
     },
     {
-      name: 'dailyDistance',
-      type: 'group',
+      name: "dailyDistance",
+      type: "group",
       fields: [
         {
-          name: 'min',
-          type: 'number',
+          name: "min",
+          type: "number",
           required: true,
           admin: {
-            description: 'Minimum daily distance in kilometers',
+            description: "Minimum daily distance in kilometers",
           },
         },
         {
-          name: 'max',
-          type: 'number',
+          name: "max",
+          type: "number",
           required: true,
           admin: {
-            description: 'Maximum daily distance in kilometers',
+            description: "Maximum daily distance in kilometers",
           },
         },
       ],
     },
     {
-      name: 'difficulty',
-      type: 'number',
+      name: "difficulty",
+      type: "number",
       required: true,
       min: 1,
       max: 5,
       admin: {
-        description: 'Difficulty rating from 1 (easiest) to 5 (most difficult)',
+        description: "Difficulty rating from 1 (easiest) to 5 (most difficult)",
       },
     },
     {
-      name: 'travelTimeRating',
-      type: 'number',
+      name: "travelTimeRating",
+      type: "number",
       required: true,
       min: 1,
       max: 5,
       admin: {
-        description: 'Travel time intensity from 1 (short daily rides) to 5 (long daily rides)',
+        description: "Travel time intensity from 1 (short daily rides) to 5 (long daily rides)",
       },
     },
     {
-      name: 'sightseeing',
-      type: 'number',
+      name: "sightseeing",
+      type: "number",
       required: true,
       min: 1,
       max: 5,
       admin: {
-        description: 'Sightseeing opportunities from 1 (limited) to 5 (extensive)',
+        description: "Sightseeing opportunities from 1 (limited) to 5 (extensive)",
       },
     },
     {
-      name: 'minimumParticipants',
-      type: 'number',
+      name: "minimumParticipants",
+      type: "number",
       required: true,
       min: 1,
       admin: {
-        description: 'Minimum number of participants required for the tour',
+        description: "Minimum number of participants required for the tour",
       },
     },
     {
-      name: 'featuredImage',
-      type: 'upload',
-      relationTo: 'media',
+      name: "featuredImage",
+      type: "upload",
+      relationTo: "media",
       required: true,
     },
     {
-      name: 'gallery',
-      type: 'array',
+      name: "gallery",
+      type: "array",
       fields: [
         {
-          name: 'image',
-          type: 'upload',
-          relationTo: 'media',
+          name: "image",
+          type: "upload",
+          relationTo: "media",
           required: true,
         },
       ],
     },
     {
-      name: 'shortDescription',
-      type: 'textarea',
+      name: "shortDescription",
+      type: "textarea",
       required: true,
     },
     {
-      name: 'subtitle',
-      type: 'text',
+      name: "subtitle",
+      type: "text",
       required: true,
       admin: {
-        description: 'Subtitle for the tour',
+        description: "Subtitle for the tour",
       },
     },
     {
-      name: 'fullDescription',
-      type: 'richText',
+      name: "fullDescription",
+      type: "richText",
       required: true,
       editor: defaultLexical,
     },
     {
-      name: 'duration',
-      type: 'number',
+      name: "duration",
+      type: "number",
       required: true,
       min: 1,
       admin: {
-        description: 'Duration in days',
+        description: "Duration in days",
       },
     },
     {
-      name: 'ridingDays',
-      type: 'number',
+      name: "ridingDays",
+      type: "number",
       required: true,
       min: 1,
       admin: {
-        description: 'Number of riding days',
+        description: "Number of riding days",
       },
     },
     {
-      name: 'price',
-      type: 'number',
+      name: "price",
+      type: "number",
       required: true,
       min: 0,
       admin: {
-        description: 'Price in USD',
+        description: "Price in USD",
       },
     },
     {
-      name: 'included',
-      type: 'array',
+      name: "included",
+      type: "array",
       fields: [
         {
-          name: 'item',
-          type: 'text',
+          name: "item",
+          type: "text",
           required: true,
         },
       ],
     },
     {
-      name: 'itinerary',
-      type: 'array',
+      name: "itinerary",
+      type: "array",
       fields: [
         {
-          name: 'day',
-          type: 'number',
+          name: "day",
+          type: "number",
           required: true,
         },
         {
-          name: 'title',
-          type: 'text',
+          name: "title",
+          type: "text",
           required: true,
         },
         {
-          name: 'description',
-          type: 'richText',
+          name: "description",
+          type: "richText",
           editor: defaultLexical,
           required: true,
         },
         {
-          name: 'distance',
-          type: 'number',
+          name: "distance",
+          type: "number",
           admin: {
-            description: 'Distance in kilometers',
+            description: "Distance in kilometers",
           },
         },
       ],
     },
     {
-      name: 'additionalCosts',
-      type: 'array',
+      name: "additionalCosts",
+      type: "array",
       fields: [
         {
-          name: 'item',
-          type: 'text',
+          name: "item",
+          type: "text",
           required: true,
         },
       ],
     },
     {
-      name: 'tourBookLink',
-      type: 'text',
+      name: "tourBookLink",
+      type: "text",
       admin: {
-        description: 'Link to download the tour book PDF',
+        description: "Link to download the tour book PDF",
       },
     },
     {
-      name: 'motorcycles',
-      type: 'array',
+      name: "motorcycles",
+      type: "array",
       fields: [
         {
-          name: 'model',
-          type: 'text',
+          name: "model",
+          type: "text",
           required: true,
         },
         {
-          name: 'image',
-          type: 'upload',
-          relationTo: 'media',
+          name: "image",
+          type: "upload",
+          relationTo: "media",
         },
         {
-          name: 'description',
-          type: 'textarea',
+          name: "description",
+          type: "textarea",
         },
       ],
     },
     {
-      name: 'featured',
-      type: 'checkbox',
+      name: "featured",
+      type: "checkbox",
       defaultValue: false,
       admin: {
-        description: 'Show this tour on the homepage',
+        description: "Show this tour on the homepage",
       },
     },
   ],
